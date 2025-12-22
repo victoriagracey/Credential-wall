@@ -6,68 +6,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    body {
+    :root{
+      --page-bg: #d7a1ab;      /* dusky pink */
+      --tile-bg: rgba(255,255,255,0.92);
+      --shadow: 0 18px 45px rgba(0,0,0,0.14);
+      --radius: 26px;
+
+      --badge-height: 130px;  /* <- size dial (120–150 is a nice range) */
+      --gap: 48px;
+    }
+
+    body{
       margin: 0;
-      padding: 48px 24px;
-      background: #f6f6f6;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--page-bg);
+      padding: 48px 18px;
     }
 
-    .wall {
-      max-width: 900px;
-      margin: 0 auto;
+    /* Centers the big tile on the page */
+    .page{
+      min-height: calc(100vh - 96px);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 40px;
+      place-items: start center;
+    }
+
+    /* One large rounded tile (your “badge wallet”) */
+    .wallet{
+      width: min(1050px, 92vw);
+      background: var(--tile-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 34px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Badge row */
+    .wall{
+      display: flex;
+      gap: var(--gap);
       align-items: center;
-      justify-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
-.badge{
-  display:block;
-  width:100%;
-  max-width:210px;   /* <- size dial */
-  background:transparent;
-  padding:0;
-  border-radius:0;
-  box-shadow:none;
-  transition:transform .15s ease, box-shadow .15s ease;
-}
-.badge, .badge img{
-  background:transparent !important;
-  box-shadow:none !important;
-  border-radius:0 !important;
-}
-
-
-    .badge:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 26px 55px rgba(0,0,0,0.18);
+    /* Clickable badge */
+    .badge{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
     }
 
-    .badge img {
-      width: 100%;
-      height: auto;
+    /* Make badges visually consistent */
+    .badge img{
+      height: var(--badge-height);
+      width: auto;
       display: block;
+      background: transparent !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      transition: transform .18s ease, filter .18s ease;
+    }
+
+    /* Subtle hover that works for transparent PNGs */
+    .badge:hover img{
+      transform: translateY(-2px);
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,0.14));
+    }
+
+    /* Small screens */
+    @media (max-width: 520px){
+      :root{
+        --badge-height: 115px;
+        --gap: 26px;
+      }
+      .wallet{
+        padding: 26px;
+        border-radius: 22px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="wall">
+  <main class="page">
+    <section class="wallet">
+      <div class="wall">
 
-    <a class="badge" href="https://www.open.edu/openlearn/badges/badge.php?hash=5c11bb6dee7a3b883f58efd25fac87dabd19497a" target="_blank" rel="noopener">
-    <img src="docs/badges/Understanding_autism.png" alt="Understanding Autism – Open University">
-    </a>
+        <a class="badge"
+           href="https://www.open.edu/openlearn/badges/badge.php?hash=5c11bb6dee7a3b883f58efd25fac87dabd19497a"
+           target="_blank" rel="noopener">
+          <img src="docs/badges/Understanding_autism.png" alt="Understanding Autism – Open University">
+        </a>
 
-    <a class="badge" href="https://www.credly.com/badges/8d184c6b-a364-400c-9b7b-f5aea08f8389/public_url" target="_blank" rel="noopener">
-    <img src="docs/badges/aws_SWS.png" alt="ASW - Storage">
-    </a>
+        <a class="badge"
+           href="https://www.credly.com/badges/8d184c6b-a364-400c-9b7b-f5aea08f8389/public_url"
+           target="_blank" rel="noopener">
+          <img src="docs/badges/aws_SWS.png" alt="AWS Educate - Getting Started with Storage">
+        </a>
 
-    <a class="badge" https://academy.gorgias.com/learn" target="_blank" rel="noopener">
-    <img src="docs/badges/Gorgias.png" alt="Gorgias Certified">
-    </a>
+        <a class="badge" href="PASTE_CERT_LINK_HERE" target="_blank" rel="noopener">
+          <img src="docs/badges/gorgias_badge.png" alt="Gorgias Certified Support Agent">
+        </a>
+        -->
 
+      </div>
+    </section>
   </main>
 </body>
 </html>
