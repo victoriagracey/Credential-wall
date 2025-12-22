@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Credentials</title>
+  <title>Victoria’s Badges</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -21,6 +21,7 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       background: var(--page-bg);
       padding: 48px 18px;
+      color: rgba(0,0,0,0.86);
     }
 
     /* Centers the big tile on the page */
@@ -38,6 +39,41 @@
       box-shadow: var(--shadow);
       padding: 34px;
       backdrop-filter: blur(6px);
+    }
+
+    /* Page heading */
+    .title{
+      margin: 0 0 18px;
+      font-size: clamp(28px, 3vw, 36px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle{
+      margin: 0 0 26px;
+      color: rgba(0,0,0,0.62);
+      font-size: 14px;
+    }
+
+    /* Section headings */
+    .section-title{
+      margin: 26px 0 16px;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.70);
+    }
+
+    /* Soft divider */
+    .divider{
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(0,0,0,0.18),
+        transparent
+      );
+      margin: 22px 0 18px;
     }
 
     /* Badge row */
@@ -88,6 +124,9 @@
         padding: 26px;
         border-radius: 22px;
       }
+      .subtitle{
+        margin-bottom: 22px;
+      }
     }
   </style>
 </head>
@@ -95,26 +134,38 @@
 <body>
   <main class="page">
     <section class="wallet">
-      <div class="wall">
 
+      <h1 class="title">Victoria’s Badges</h1>
+      <p class="subtitle">A wee credential wallet — click any badge to view verification.</p>
+
+      <h2 class="section-title">CRMs</h2>
+      <div class="divider"></div>
+      <div class="wall">
+        <a class="badge" href="PASTE_CERT_LINK_HERE" target="_blank" rel="noopener">
+          <img src="docs/badges/Gorgias.png" alt="Gorgias Certified Support Agent">
+        </a>
+      </div>
+
+      <h2 class="section-title">Accessibility &amp; Inclusion</h2>
+      <div class="divider"></div>
+      <div class="wall">
         <a class="badge"
            href="https://www.open.edu/openlearn/badges/badge.php?hash=5c11bb6dee7a3b883f58efd25fac87dabd19497a"
            target="_blank" rel="noopener">
           <img src="docs/badges/Understanding_autism.png" alt="Understanding Autism – Open University">
         </a>
+      </div>
 
+      <h2 class="section-title">Additional Learning</h2>
+      <div class="divider"></div>
+      <div class="wall">
         <a class="badge"
            href="https://www.credly.com/badges/8d184c6b-a364-400c-9b7b-f5aea08f8389/public_url"
            target="_blank" rel="noopener">
           <img src="docs/badges/aws_SWS.png" alt="AWS Educate - Getting Started with Storage">
         </a>
-
-        <a class="badge" href="PASTE_CERT_LINK_HERE" target="_blank" rel="noopener">
-          <img src="docs/badges/Gorgias.png" alt="Gorgias Certified Support Agent">
-        </a>
-        
-
       </div>
+
     </section>
   </main>
 </body>
