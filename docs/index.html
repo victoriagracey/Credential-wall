@@ -7,7 +7,7 @@
 
   <style>
     :root{
-      --page-bg: #d7a1ab;      /* dusky pink */
+      --page-bg: #d7a1ab;
       --tile-bg: rgba(255,255,255,0.92);
       --shadow: 0 18px 45px rgba(0,0,0,0.14);
       --radius: 26px;
@@ -15,7 +15,7 @@
       --badge-height: 130px;
       --gap: 48px;
 
-      --sparkle: rgba(215,161,171,0.7); /* boosted sparkle */
+      --sparkle: rgba(215,161,171,0.7);
     }
 
     body{
@@ -87,29 +87,20 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      background: transparent;
-      padding: 0;
-      border-radius: 0;
-      box-shadow: none;
     }
 
     .badge img{
       height: var(--badge-height);
       width: auto;
       display: block;
-      background: transparent !important;
-      box-shadow: none !important;
-      border-radius: 0 !important;
       transition: transform .18s ease, filter .18s ease;
     }
 
-    /* lift + shadow */
     .badge:hover img{
       transform: translateY(-2px);
       filter: drop-shadow(0 10px 16px rgba(0,0,0,0.14));
     }
 
-    /* ✨ enhanced sparkle overlay */
     .badge::after{
       content:"";
       position:absolute;
@@ -131,21 +122,9 @@
     }
 
     @keyframes sparkle{
-      0%{
-        opacity:0;
-        transform:scale(0.9) rotate(0deg);
-      }
-      35%{
-        opacity:1;
-      }
-      70%{
-        opacity:0.6;
-        transform:scale(1.08) rotate(1deg);
-      }
-      100%{
-        opacity:0;
-        transform:scale(1.15) rotate(2deg);
-      }
+      0%{ opacity:0; transform:scale(0.9); }
+      35%{ opacity:1; }
+      100%{ opacity:0; transform:scale(1.15); }
     }
 
     @media (max-width: 520px){
@@ -156,9 +135,6 @@
       .wallet{
         padding: 26px;
         border-radius: 22px;
-      }
-      .subtitle{
-        margin-bottom: 22px;
       }
     }
   </style>
@@ -171,6 +147,7 @@
       <h1 class="title">Victoria’s Badges</h1>
       <p class="subtitle">A wee credential wallet — click any badge to view verification.</p>
 
+      <!-- CRMs -->
       <h2 class="section-title">CRMs</h2>
       <div class="divider"></div>
       <div class="wall">
@@ -179,26 +156,29 @@
         </a>
       </div>
 
-      <h2 class="section-title">Foundations / Prep / In Progress</h2>
-      <div class="divider"></div>
-      <div class="wall">
-        <a class="badge"
-           href="https://mylearn.oracle.com/ou/learning-path/how-to-purchase-and-take-an-oracle-exam/139184"
-           target="_blank" rel="noopener">
-          <img src="docs/badges/Oracle_university.png" alt="Oracle University – Learning Path (Foundations)">
-        </a>
-      </div>
-
-      <h2 class="section-title">Companion Tools</h2>
+      <!-- Automation & AI -->
+      <h2 class="section-title">Automation &amp; AI</h2>
       <div class="divider"></div>
       <div class="wall">
         <a class="badge"
            href="https://www.salesforce.com/trailblazer/vrichardson13"
            target="_blank" rel="noopener">
-          <img src="docs/badges/slack.png" alt="Slack — General Use">
+          <img src="docs/badges/agentblazer.png" alt="Agentblazer Champion – Agentforce & AI">
         </a>
       </div>
 
+      <!-- Productivity Tools -->
+      <h2 class="section-title">Productivity Tools</h2>
+      <div class="divider"></div>
+      <div class="wall">
+        <a class="badge"
+           href="https://www.salesforce.com/trailblazer/vrichardson13"
+           target="_blank" rel="noopener">
+          <img src="docs/badges/slack.png" alt="Slack — Productivity Tool">
+        </a>
+      </div>
+
+      <!-- Accessibility -->
       <h2 class="section-title">Accessibility &amp; Inclusion</h2>
       <div class="divider"></div>
       <div class="wall">
@@ -209,6 +189,7 @@
         </a>
       </div>
 
+      <!-- Additional Learning -->
       <h2 class="section-title">Additional Learning</h2>
       <div class="divider"></div>
       <div class="wall">
@@ -216,6 +197,17 @@
            href="https://www.credly.com/badges/8d184c6b-a364-400c-9b7b-f5aea08f8389/public_url"
            target="_blank" rel="noopener">
           <img src="docs/badges/aws_SWS.png" alt="AWS Educate - Getting Started with Storage">
+        </a>
+      </div>
+
+      <!-- Foundations -->
+      <h2 class="section-title">Foundations / Prep / In Progress</h2>
+      <div class="divider"></div>
+      <div class="wall">
+        <a class="badge"
+           href="https://mylearn.oracle.com/ou/learning-path/how-to-purchase-and-take-an-oracle-exam/139184"
+           target="_blank" rel="noopener">
+          <img src="docs/badges/Oracle_university.png" alt="Oracle University – Learning Path (Foundations)">
         </a>
       </div>
 
