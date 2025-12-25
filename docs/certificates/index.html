@@ -77,6 +77,7 @@
       gap: var(--gap);
     }
 
+    /* ===== certificate tile ===== */
     .cert{
       height: var(--tile-h);
       border-radius: var(--tile-radius);
@@ -95,7 +96,7 @@
       box-shadow: 0 20px 46px rgba(0,0,0,0.16);
     }
 
-    /* pink glow (top-left) */
+    /* ✅ pink glow stays on the tile, but it won't tint the watermark (watermark sits above in its own opacity) */
     .cert::before{
       content:"";
       position:absolute;
@@ -104,28 +105,58 @@
         radial-gradient(
           circle at 0% 0%,
           rgba(242,214,220,0.85),
-          rgba(242,214,220,0.45) 32%,
-          rgba(242,214,220,0.14) 52%,
+          rgba(242,214,220,0.40) 32%,
+          rgba(242,214,220,0.10) 52%,
           transparent 70%
         );
       pointer-events:none;
       z-index: 1;
     }
 
-    .cert-content{
-      height:100%;
-      display:grid;
-      grid-template-columns: 60% 40%;
-      position:relative;
+    /* ✅ Watermark layer (ghost image) */
+    .cert-watermark{
+      position:absolute;
+      inset:0;
       z-index: 2;
+      pointer-events:none;
+      display:flex;
+      justify-content:flex-end;
+      align-items:stretch;
+      padding-right: 0;
     }
 
-    .cert-text{
-      padding:14px;
+    .cert-watermark img{
+      width: 46%;           /* ~40% look + breathing room */
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.12);
+      opacity: 0.18;        /* ✅ ghost strength */
+      filter: saturate(1.05) contrast(1.02); /* keep crisp but subtle */
+      display:block;
+
+      /* ✅ defined fade into the tile with NO pink tint */
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+              mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+    }
+
+    /* ✅ Foreground content sits above watermark */
+    .cert-content{
+      position:relative;
+      z-index: 3;
+      height:100%;
+      padding: 14px;
       display:flex;
       flex-direction:column;
       justify-content:center;
-      gap:10px;
+      gap: 10px;
+
+      /* optional: tiny frosted backing so text reads over watermark */
+      background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0.55) 0%,
+        rgba(255,255,255,0.38) 55%,
+        rgba(255,255,255,0.0) 100%
+      );
     }
 
     .cert-title{
@@ -134,10 +165,7 @@
       line-height:1.2;
       font-weight:650;
       letter-spacing:.1px;
-      display:-webkit-box;
-      -webkit-line-clamp:3;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
+      max-width: 75%; /* stops title going too deep into watermark */
     }
 
     .issuer-pill{
@@ -146,7 +174,7 @@
       padding:6px 10px;
       border-radius:999px;
       border:1px solid rgba(0,0,0,.08);
-      background: rgba(255,255,255,.55);
+      background: rgba(255,255,255,.65);
       color: var(--muted);
       white-space:nowrap;
     }
@@ -155,47 +183,6 @@
       background: rgba(48,108,178,.12);
       border-color: rgba(48,108,178,.20);
       color:#2e5f9a;
-    }
-
-    .cert-media{
-      position:relative;
-      overflow:hidden;
-      background: rgba(255,255,255,0.55);
-    }
-
-    .cert-media img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      transform: scale(1.10);
-      opacity:.98;
-    }
-
-    /* ✅ gentler, longer fade (and tinted slightly pink so it doesn't go chalk-white) */
-    .cert-media::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(
-        270deg,
-        rgba(242,214,220,0) 35%,
-        rgba(242,214,220,0.10) 52%,
-        rgba(242,214,220,0.28) 68%,
-        rgba(242,214,220,0.55) 84%,
-        rgba(242,214,220,0.90) 97%,
-        rgba(242,214,220,1) 100%
-      );
-      pointer-events:none;
-    }
-
-    /* ✅ tiny vignette to "seat" the image (subtle, professional) */
-    .cert-media::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(circle at 75% 50%, transparent 55%, rgba(0,0,0,0.06) 100%);
-      pointer-events:none;
     }
   </style>
 </head>
@@ -215,18 +202,18 @@
             <a class="cert"
                href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3"
                target="_blank" rel="noopener">
-              <div class="cert-content">
 
-                <div class="cert-text">
-                  <h3 class="cert-title">Disability in the Workplace: A Global Perspective</h3>
-                  <span class="issuer-pill issuer-itcilo">ITCILO</span>
-                </div>
-
-                <div class="cert-media">
-                  <img src="assets/thumbs/itcilo-logo.png" alt="ITCILO badge">
-                </div>
-
+              <!-- ghost / watermark image -->
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/itcilo-logo.png" alt="">
               </div>
+
+              <!-- foreground text (can overlap watermark) -->
+              <div class="cert-content">
+                <h3 class="cert-title">Disability in the Workplace: A Global Perspective</h3>
+                <span class="issuer-pill issuer-itcilo">ITCILO</span>
+              </div>
+
             </a>
 
           </div>
