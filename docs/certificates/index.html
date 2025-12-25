@@ -7,8 +7,8 @@
 
   <style>
     :root{
-      --page-bg: #f2d6dc;                 /* dusky pink */
-      --board-bg: rgba(255,255,255,0.92); /* big container tile */
+      --page-bg: #f2d6dc;
+      --board-bg: rgba(255,255,255,0.92);
       --tile-bg: rgba(255,255,255,0.92);
       --ink: #2f2327;
       --muted: #6a4a53;
@@ -28,7 +28,6 @@
       color: var(--ink);
       padding: 46px 20px 80px;
 
-      /* subtle textured/paper background */
       background:
         radial-gradient(circle at 18% 16%, rgba(255,255,255,.35), transparent 55%),
         radial-gradient(circle at 85% 80%, rgba(255,255,255,.22), transparent 60%),
@@ -78,7 +77,6 @@
       gap: var(--gap);
     }
 
-    /* ===== certificate tile ===== */
     .cert{
       height: var(--tile-h);
       border-radius: var(--tile-radius);
@@ -97,7 +95,7 @@
       box-shadow: 0 20px 46px rgba(0,0,0,0.16);
     }
 
-    /* Pink ombré on tile (top-left), gentle and professional */
+    /* pink glow (top-left) */
     .cert::before{
       content:"";
       position:absolute;
@@ -117,7 +115,7 @@
     .cert-content{
       height:100%;
       display:grid;
-      grid-template-columns: 60% 40%; /* ✅ requested split */
+      grid-template-columns: 60% 40%;
       position:relative;
       z-index: 2;
     }
@@ -162,30 +160,41 @@
     .cert-media{
       position:relative;
       overflow:hidden;
-      background: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.55);
     }
 
     .cert-media img{
       width:100%;
       height:100%;
-      object-fit: cover;     /* fill the side */
+      object-fit:cover;
       display:block;
-      transform: scale(1.08);
+      transform: scale(1.10);
       opacity:.98;
     }
 
-    /* ✅ Simple left→right fade into the text side */
+    /* ✅ gentler, longer fade (and tinted slightly pink so it doesn't go chalk-white) */
     .cert-media::after{
       content:"";
       position:absolute;
       inset:0;
       background: linear-gradient(
         270deg,
-        rgba(255,255,255,0) 45%,
-        rgba(255,255,255,0.35) 70%,
-        rgba(255,255,255,0.80) 92%,
-        rgba(255,255,255,1) 100%
+        rgba(242,214,220,0) 35%,
+        rgba(242,214,220,0.10) 52%,
+        rgba(242,214,220,0.28) 68%,
+        rgba(242,214,220,0.55) 84%,
+        rgba(242,214,220,0.90) 97%,
+        rgba(242,214,220,1) 100%
       );
+      pointer-events:none;
+    }
+
+    /* ✅ tiny vignette to "seat" the image (subtle, professional) */
+    .cert-media::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at 75% 50%, transparent 55%, rgba(0,0,0,0.06) 100%);
       pointer-events:none;
     }
   </style>
