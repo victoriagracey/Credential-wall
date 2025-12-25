@@ -96,7 +96,7 @@
       box-shadow: 0 20px 46px rgba(0,0,0,0.16);
     }
 
-    /* ✅ pink glow stays on the tile, but it won't tint the watermark (watermark sits above in its own opacity) */
+    /* subtle pink glow on tile (top-left only) */
     .cert::before{
       content:"";
       position:absolute;
@@ -113,7 +113,7 @@
       z-index: 1;
     }
 
-    /* ✅ Watermark layer (ghost image) */
+    /* watermark / ghost image */
     .cert-watermark{
       position:absolute;
       inset:0;
@@ -122,24 +122,21 @@
       display:flex;
       justify-content:flex-end;
       align-items:stretch;
-      padding-right: 0;
     }
 
     .cert-watermark img{
-      width: 46%;           /* ~40% look + breathing room */
+      width: 46%;
       height: 100%;
       object-fit: cover;
       transform: scale(1.12);
-      opacity: 0.18;        /* ✅ ghost strength */
-      filter: saturate(1.05) contrast(1.02); /* keep crisp but subtle */
+      opacity: 0.18;
       display:block;
 
-      /* ✅ defined fade into the tile with NO pink tint */
       -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
               mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
     }
 
-    /* ✅ Foreground content sits above watermark */
+    /* foreground content */
     .cert-content{
       position:relative;
       z-index: 3;
@@ -150,7 +147,6 @@
       justify-content:center;
       gap: 10px;
 
-      /* optional: tiny frosted backing so text reads over watermark */
       background: linear-gradient(
         90deg,
         rgba(255,255,255,0.55) 0%,
@@ -165,9 +161,10 @@
       line-height:1.2;
       font-weight:650;
       letter-spacing:.1px;
-      max-width: 75%; /* stops title going too deep into watermark */
+      max-width: 75%;
     }
 
+    /* issuer pills */
     .issuer-pill{
       align-self:flex-start;
       font-size:.72rem;
@@ -179,10 +176,17 @@
       white-space:nowrap;
     }
 
-    .issuer-itcilo{
-      background: rgba(48,108,178,.12);
-      border-color: rgba(48,108,178,.20);
-      color:#2e5f9a;
+    /* colour keys */
+    .issuer-education{
+      background: rgba(48,108,178,0.14);
+      border-color: rgba(48,108,178,0.22);
+      color: #2e5f9a;
+    }
+
+    .issuer-vendor{
+      background: rgba(245,215,110,0.25);
+      border-color: rgba(245,215,110,0.35);
+      color: #7a6200;
     }
   </style>
 </head>
@@ -199,21 +203,34 @@
 
           <div class="grid">
 
+            <!-- ITCILO -->
             <a class="cert"
                href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3"
                target="_blank" rel="noopener">
 
-              <!-- ghost / watermark image -->
               <div class="cert-watermark" aria-hidden="true">
                 <img src="assets/thumbs/itcilo-logo.png" alt="">
               </div>
 
-              <!-- foreground text (can overlap watermark) -->
               <div class="cert-content">
                 <h3 class="cert-title">Disability in the Workplace: A Global Perspective</h3>
-                <span class="issuer-pill issuer-itcilo">ITCILO</span>
+                <span class="issuer-pill issuer-education">ITCILO</span>
+              </div>
+            </a>
+
+            <!-- Zendesk / LinkedIn -->
+            <a class="cert"
+               href="https://www.linkedin.com/learning/paths/zendesk-customer-service-professional-certificate?u=0"
+               target="_blank" rel="noopener">
+
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/zendesk.png" alt="">
               </div>
 
+              <div class="cert-content">
+                <h3 class="cert-title">Zendesk Customer Service Professional Certificate</h3>
+                <span class="issuer-pill issuer-vendor">LinkedIn × Zendesk</span>
+              </div>
             </a>
 
           </div>
