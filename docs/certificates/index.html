@@ -7,8 +7,8 @@
 
   <style>
     :root{
-      --page-bg: #f2d6dc;
-      --board-bg: rgba(255,255,255,0.92);
+      --page-bg: #f2d6dc;                 /* dusky pink */
+      --board-bg: rgba(255,255,255,0.92); /* big container tile */
       --tile-bg: rgba(255,255,255,0.92);
       --ink: #2f2327;
       --muted: #6a4a53;
@@ -28,6 +28,7 @@
       color: var(--ink);
       padding: 46px 20px 80px;
 
+      /* subtle textured/paper background */
       background:
         radial-gradient(circle at 18% 16%, rgba(255,255,255,.35), transparent 55%),
         radial-gradient(circle at 85% 80%, rgba(255,255,255,.22), transparent 60%),
@@ -77,6 +78,7 @@
       gap: var(--gap);
     }
 
+    /* ===== certificate tile ===== */
     .cert{
       height: var(--tile-h);
       border-radius: var(--tile-radius);
@@ -95,7 +97,7 @@
       box-shadow: 0 20px 46px rgba(0,0,0,0.16);
     }
 
-    /* Soft pink glow on the text side, but NOT reaching too far into the image */
+    /* Pink ombré on tile (top-left), gentle and professional */
     .cert::before{
       content:"";
       position:absolute;
@@ -103,21 +105,21 @@
       background:
         radial-gradient(
           circle at 0% 0%,
-          rgba(242,214,220,0.95),
-          rgba(242,214,220,0.55) 28%,
-          rgba(242,214,220,0.18) 44%,
-          transparent 60%
+          rgba(242,214,220,0.85),
+          rgba(242,214,220,0.45) 32%,
+          rgba(242,214,220,0.14) 52%,
+          transparent 70%
         );
       pointer-events:none;
-      z-index:1;
+      z-index: 1;
     }
 
     .cert-content{
       height:100%;
       display:grid;
-      grid-template-columns: 52% 48%;
+      grid-template-columns: 60% 40%; /* ✅ requested split */
       position:relative;
-      z-index:2;
+      z-index: 2;
     }
 
     .cert-text{
@@ -160,51 +162,31 @@
     .cert-media{
       position:relative;
       overflow:hidden;
-      background: rgba(255,255,255,0.55);
-      isolation: isolate; /* helps blending look cleaner */
+      background: rgba(255,255,255,0.6);
     }
 
     .cert-media img{
       width:100%;
       height:100%;
-      object-fit:cover;
+      object-fit: cover;     /* fill the side */
       display:block;
       transform: scale(1.08);
       opacity:.98;
     }
 
-    /* ✅ Smooth fade that blends into TRANSPARENT (not into a solid colour) */
+    /* ✅ Simple left→right fade into the text side */
     .cert-media::after{
       content:"";
       position:absolute;
       inset:0;
       background: linear-gradient(
         270deg,
-        rgba(255,255,255,0) 30%,
-        rgba(255,255,255,0.08) 52%,
-        rgba(255,255,255,0.30) 68%,
-        rgba(255,255,255,0.65) 84%,
-        rgba(255,255,255,0.95) 100%
-      );
-      /* mix-blend-mode makes the fade "melt" into what's underneath */
-      mix-blend-mode: soft-light;
-      pointer-events:none;
-    }
-
-    /* ✅ Extra feather right at the join to kill any remaining seam */
-    .cert-media::before{
-      content:"";
-      position:absolute;
-      top:0; bottom:0;
-      left:-16px;            /* straddles the boundary */
-      width:32px;
-      background: radial-gradient(
-        circle,
-        rgba(242,214,220,0.18),
-        transparent 70%
+        rgba(255,255,255,0) 45%,
+        rgba(255,255,255,0.35) 70%,
+        rgba(255,255,255,0.80) 92%,
+        rgba(255,255,255,1) 100%
       );
       pointer-events:none;
-      z-index:2;
     }
   </style>
 </head>
