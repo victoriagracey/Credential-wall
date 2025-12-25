@@ -77,7 +77,6 @@
       gap: var(--gap);
     }
 
-    /* ===== certificate tile ===== */
     .cert{
       height: var(--tile-h);
       border-radius: var(--tile-radius);
@@ -96,7 +95,6 @@
       box-shadow: 0 20px 46px rgba(0,0,0,0.16);
     }
 
-    /* subtle pink glow on tile (top-left only) */
     .cert::before{
       content:"";
       position:absolute;
@@ -113,7 +111,6 @@
       z-index: 1;
     }
 
-    /* watermark / ghost image */
     .cert-watermark{
       position:absolute;
       inset:0;
@@ -136,7 +133,6 @@
               mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
     }
 
-    /* foreground content */
     .cert-content{
       position:relative;
       z-index: 3;
@@ -164,7 +160,6 @@
       max-width: 75%;
     }
 
-    /* issuer pills */
     .issuer-pill{
       align-self:flex-start;
       font-size:.72rem;
@@ -218,9 +213,9 @@
               </div>
             </a>
 
-            <!-- Zendesk / LinkedIn -->
+            <!-- Zendesk / LinkedIn (FIXED LINK to certificate) -->
             <a class="cert"
-               href="https://www.linkedin.com/learning/paths/zendesk-customer-service-professional-certificate?u=0"
+               href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed?trk=share_certificate"
                target="_blank" rel="noopener">
 
               <div class="cert-watermark" aria-hidden="true">
@@ -230,6 +225,21 @@
               <div class="cert-content">
                 <h3 class="cert-title">Zendesk Customer Service Professional Certificate</h3>
                 <span class="issuer-pill issuer-vendor">LinkedIn × Zendesk</span>
+              </div>
+            </a>
+
+            <!-- LinkedIn Learning -->
+            <a class="cert"
+               href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10?trk=share_certificate"
+               target="_blank" rel="noopener">
+
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/linkedin.png" alt="">
+              </div>
+
+              <div class="cert-content">
+                <h3 class="cert-title">Build Your Skills in Customer Service</h3>
+                <span class="issuer-pill issuer-vendor">LinkedIn Learning</span>
               </div>
             </a>
 
