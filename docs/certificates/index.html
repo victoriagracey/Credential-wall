@@ -48,36 +48,21 @@
 
     .page{ max-width:1080px; margin:0 auto; }
 
-    /* ===== Board ===== */
-    .board{
-      background: var(--board-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+    /* ===== Folder shell wrapper (tabs attach to this) ===== */
+    .folder{
       position: relative;
+      margin-top: 34px; /* gives room for tabs above */
     }
 
-    .board::after{
-      content:"";
-      position:absolute;
-      inset:-40px;
-      background: radial-gradient(circle at 20% 10%, rgba(255,255,255,.55), transparent 55%);
-      pointer-events:none;
-    }
-
-    /* ===== Tabs bar (inside board) ===== */
-    .tabs-bar{
-      position: relative;
-      z-index: 2;
-      padding: 18px 22px 0;
-    }
-
+    /* ===== Tabs OUTSIDE the board, but attached ===== */
     .folder-tabs{
-      display:flex;
+      position: absolute;
+      top: -34px;       /* pulls tabs above the board */
+      left: 22px;
+      display: flex;
       gap: 14px;
-      align-items:flex-end;
-      margin: 0;
-      padding: 0;
+      align-items: flex-end;
+      z-index: 5;
     }
 
     .folder-tabs .tab{
@@ -97,7 +82,7 @@
       border: 1px solid var(--tab-border);
       border-bottom: none;
 
-      /* inactive = behind */
+      /* inactive behind */
       background: rgba(255,255,255,0.70);
       transform: translateY(12px);
       box-shadow:
@@ -118,12 +103,13 @@
       transform: translateY(0);
       opacity: 1;
       filter: none;
-      z-index: 3;
+      z-index: 6;
       box-shadow:
         0 10px 16px rgba(0,0,0,0.10),
         inset 0 1px 0 rgba(255,255,255,0.85);
     }
 
+    /* Curved “join” illusion on active tab */
     .folder-tabs .tab.active::before,
     .folder-tabs .tab.active::after{
       content:"";
@@ -134,31 +120,47 @@
       background: transparent;
       pointer-events:none;
     }
+
     .folder-tabs .tab.active::before{
       left:-18px;
       border-bottom-right-radius: 18px;
       box-shadow: 9px 9px 0 rgba(255,255,255,0.985);
     }
+
     .folder-tabs .tab.active::after{
       right:-18px;
       border-bottom-left-radius: 18px;
       box-shadow: -9px 9px 0 rgba(255,255,255,0.985);
     }
 
-    .tabs-divider{
-      margin-top: 10px;
+    /* ===== Board ===== */
+    .board{
+      background: var(--board-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .board::after{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background: radial-gradient(circle at 20% 10%, rgba(255,255,255,.55), transparent 55%);
+      pointer-events:none;
+    }
+
+    .board-inner{ position:relative; z-index:1; }
+
+    /* Folder lip line ON the board, behind the tabs */
+    .folder-lip{
       height: 10px;
       border-radius: 999px;
       background: rgba(215,161,171,0.16);
       border: 1px solid rgba(0,0,0,0.06);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
-    }
-
-    /* ===== Content area ===== */
-    .board-inner{
-      position:relative;
-      z-index:1;
-      padding: 22px 26px 26px;
+      margin: 8px 0 18px;
     }
 
     .title{ font-size:2rem; margin:0 0 18px; letter-spacing:.2px; }
@@ -280,123 +282,133 @@
 
     .issuer-vendor{
       background: rgba(245,215,110,0.25);
-      border-color: rgba(245,215,110,0.35);
+      border-color: rgba(245,215110,0.35);
       color: #7a6200;
     }
 
     @media (max-width: 520px){
-      .tabs-bar{ padding: 14px 16px 0; }
-      .folder-tabs{ gap: 10px; }
-      .folder-tabs .tab{ padding: 10px 16px; border-radius: 16px 16px 0 0; }
-      .tabs-divider{ height: 9px; }
-      .board-inner{ padding: 18px 18px 22px; }
+      :root{
+        --tile-h: 140px;
+        --gap: 18px;
+      }
+      .folder{ margin-top: 30px; }
+      .folder-tabs{
+        top: -30px;
+        left: 16px;
+        gap: 10px;
+      }
+      .folder-tabs .tab{
+        padding: 10px 16px;
+        border-radius: 16px 16px 0 0;
+      }
+      .board{ padding: 22px; border-radius: 22px; }
     }
   </style>
 </head>
 
 <body>
   <div class="page">
-    <div class="board">
 
-      <!-- Tabs (Certificates active on this page) -->
-      <div class="tabs-bar">
-        <nav class="folder-tabs" aria-label="Credential sections">
-          <a class="tab" href="/Credential-wall/">Badges</a>
-          <a class="tab active" href="/Credential-wall/certificates/">Certificates</a>
-        </nav>
-        <div class="tabs-divider" aria-hidden="true"></div>
+    <div class="folder">
+
+      <!-- Tabs are OUTSIDE the board, attached to the top -->
+      <nav class="folder-tabs" aria-label="Credential sections">
+        <a class="tab" href="/Credential-wall/">Badges</a>
+        <a class="tab active" href="/Credential-wall/certificates/">Certificates</a>
+      </nav>
+
+      <div class="board">
+        <div class="board-inner">
+
+          <div class="folder-lip" aria-hidden="true"></div>
+
+          <h1 class="title">Certificates</h1>
+
+          <section class="section">
+            <h2>Workplace &amp; Inclusion</h2>
+
+            <div class="grid">
+
+              <!-- ITCILO -->
+              <a class="cert"
+                 href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3"
+                 target="_blank" rel="noopener">
+                <div class="cert-watermark" aria-hidden="true">
+                  <img src="assets/thumbs/itcilo-logo.png" alt="">
+                </div>
+                <div class="cert-content">
+                  <h3 class="cert-title">Disability in the Workplace: A Global Perspective</h3>
+                  <span class="issuer-pill issuer-education">ITCILO</span>
+                </div>
+              </a>
+
+              <!-- Zendesk Customer Service Professional Certificate -->
+              <a class="cert"
+                 href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed?trk=share_certificate"
+                 target="_blank" rel="noopener">
+                <div class="cert-watermark" aria-hidden="true">
+                  <img src="assets/thumbs/zendesk.png" alt="">
+                </div>
+                <div class="cert-content">
+                  <h3 class="cert-title">Zendesk Customer Service Professional Certificate</h3>
+                  <span class="issuer-pill issuer-vendor">Zendesk</span>
+                </div>
+              </a>
+
+              <!-- Zendesk Support for Agents -->
+              <a class="cert"
+                 href="https://verify.skilljar.com/c/bagg5ao9vc59"
+                 target="_blank" rel="noopener">
+                <div class="cert-watermark" aria-hidden="true">
+                  <img src="assets/thumbs/zendesk.png" alt="">
+                </div>
+                <div class="cert-content">
+                  <h3 class="cert-title">Zendesk Support for Agents</h3>
+                  <span class="issuer-pill issuer-vendor">Zendesk</span>
+                </div>
+              </a>
+
+              <!-- Build Your Skills in Customer Service -->
+              <a class="cert"
+                 href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10?trk=share_certificate"
+                 target="_blank" rel="noopener">
+                <div class="cert-watermark" aria-hidden="true">
+                  <img src="assets/thumbs/linkedin.png" alt="">
+                </div>
+                <div class="cert-content">
+                  <h3 class="cert-title">Build Your Skills in Customer Service</h3>
+                  <span class="issuer-pill issuer-vendor">LinkedIn Learning</span>
+                </div>
+              </a>
+
+              <!-- Gorgias (placeholder link) -->
+              <a class="cert" href="#" title="Certificate link coming soon">
+                <div class="cert-watermark" aria-hidden="true">
+                  <img src="assets/thumbs/gorgias.png" alt="">
+                </div>
+                <div class="cert-content">
+                  <h3 class="cert-title">Gorgias Certified Support Agent</h3>
+                  <span class="issuer-pill issuer-vendor">Gorgias Academy</span>
+                </div>
+              </a>
+
+              <!-- Welcome Host Gold -->
+              <a class="cert" href="#" title="In-person certificate – digital copy not available">
+                <div class="cert-watermark" aria-hidden="true">
+                  <img src="assets/thumbs/WHG.png" alt="">
+                </div>
+                <div class="cert-content">
+                  <h3 class="cert-title">Welcome Host Gold – Customer Service Training</h3>
+                  <span class="issuer-pill issuer-education">Welcome to Excellence</span>
+                </div>
+              </a>
+
+            </div>
+          </section>
+
+        </div>
       </div>
 
-      <div class="board-inner">
-        <h1 class="title">Certificates</h1>
-
-        <section class="section">
-          <h2>Workplace &amp; Inclusion</h2>
-
-          <div class="grid">
-
-            <!-- ITCILO -->
-            <a class="cert"
-               href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3"
-               target="_blank" rel="noopener">
-              <div class="cert-watermark" aria-hidden="true">
-                <img src="assets/thumbs/itcilo-logo.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Disability in the Workplace: A Global Perspective</h3>
-                <span class="issuer-pill issuer-education">ITCILO</span>
-              </div>
-            </a>
-
-            <!-- Zendesk Customer Service Professional Certificate -->
-            <a class="cert"
-               href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed?trk=share_certificate"
-               target="_blank" rel="noopener">
-              <div class="cert-watermark" aria-hidden="true">
-                <img src="assets/thumbs/zendesk.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Zendesk Customer Service Professional Certificate</h3>
-                <span class="issuer-pill issuer-vendor">Zendesk</span>
-              </div>
-            </a>
-
-            <!-- Zendesk Support for Agents -->
-            <a class="cert"
-               href="https://verify.skilljar.com/c/bagg5ao9vc59"
-               target="_blank" rel="noopener">
-              <div class="cert-watermark" aria-hidden="true">
-                <img src="assets/thumbs/zendesk.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Zendesk Support for Agents</h3>
-                <span class="issuer-pill issuer-vendor">Zendesk</span>
-              </div>
-            </a>
-
-            <!-- Build Your Skills in Customer Service -->
-            <a class="cert"
-               href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10?trk=share_certificate"
-               target="_blank" rel="noopener">
-              <div class="cert-watermark" aria-hidden="true">
-                <img src="assets/thumbs/linkedin.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Build Your Skills in Customer Service</h3>
-                <span class="issuer-pill issuer-vendor">LinkedIn Learning</span>
-              </div>
-            </a>
-
-            <!-- Gorgias (placeholder link) -->
-            <a class="cert"
-               href="#"
-               title="Certificate link coming soon">
-              <div class="cert-watermark" aria-hidden="true">
-                <img src="assets/thumbs/gorgias.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Gorgias Certified Support Agent</h3>
-                <span class="issuer-pill issuer-vendor">Gorgias Academy</span>
-              </div>
-            </a>
-
-            <!-- Welcome Host Gold -->
-            <a class="cert"
-               href="#"
-               title="In-person certificate – digital copy not available">
-              <div class="cert-watermark" aria-hidden="true">
-                <img src="assets/thumbs/WHG.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Welcome Host Gold – Customer Service Training</h3>
-                <span class="issuer-pill issuer-education">Welcome to Excellence</span>
-              </div>
-            </a>
-
-          </div>
-        </section>
-
-      </div>
     </div>
   </div>
 </body>
