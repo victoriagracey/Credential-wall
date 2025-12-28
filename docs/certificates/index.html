@@ -8,21 +8,22 @@
   <style>
     :root{
       --page-bg: #f2d6dc;
-      --board-bg: rgba(255,255,255,0.92);
-      --tile-bg: rgba(255,255,255,0.92);
+      --board-bg: rgba(255,255,255,0.96);
+      --tile-bg: rgba(255,255,255,0.96);
       --ink: #2f2327;
       --muted: #6a4a53;
       --shadow: 0 18px 45px rgba(0,0,0,0.14);
-      --radius: 26px;
+
+      --radius-bottom: 26px;
       --tile-radius: 18px;
 
       --tile-h: 140px;
       --gap: 22px;
 
       /* Tabs */
-      --tab-radius: 16px;                 /* slightly less bubbly */
-      --tab-border: rgba(0,0,0,0.14);
-      --lip: rgba(215,161,171,0.14);
+      --tab-radius: 14px;
+      --tab-border: rgba(0,0,0,0.18);
+      --lip: rgba(215,161,171,0.18);
     }
 
     *{ box-sizing:border-box; }
@@ -46,43 +47,46 @@
         var(--page-bg);
     }
 
-    .page{ max-width:1080px; margin:0 auto; }
+    .page{
+      max-width:1080px;
+      margin:0 auto;
+    }
 
     /* ======================
        Folder wrapper
        ====================== */
     .folder{
       position: relative;
-      padding-top: 44px; /* tighter than before */
+      padding-top: 38px; /* space for tabs */
     }
 
     /* ======================
-       Tab shelf
+       Tabs (attached, not floating)
        ====================== */
     .tab-shelf{
       position:absolute;
       top:0;
       left:0;
       right:0;
-      height: 44px;            /* tighter */
+      height: 38px;
       padding: 0 26px;
       display:flex;
       align-items:flex-end;
       z-index: 10;
     }
 
-    /* folder edge line behind tabs */
+    /* thin folder edge behind tabs */
     .tab-shelf::after{
       content:"";
       position:absolute;
       left: 22px;
       right: 22px;
-      bottom: 6px;             /* slightly higher */
-      height: 7px;             /* thinner lip */
+      bottom: 5px;
+      height: 6px;
       border-radius: 999px;
       background: var(--lip);
       border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
       z-index: 1;
     }
 
@@ -90,68 +94,60 @@
       position: relative;
       z-index: 2;
       display:flex;
-      gap: 12px;
+      gap: 10px;
       align-items:flex-end;
-      margin:0;
-      padding:0;
     }
 
     .folder-tabs .tab{
-      position:relative;
       display:inline-flex;
       align-items:center;
       justify-content:center;
 
-      /* smaller + more “tab-like” */
-      padding: 9px 18px;
+      padding: 7px 16px;
       border-radius: var(--tab-radius) var(--tab-radius) 0 0;
 
       text-decoration:none;
       font-weight: 800;
-      letter-spacing: 0.1px;
+      font-size: 0.95rem;
       color: var(--ink);
 
       border: 1px solid var(--tab-border);
       border-bottom: none;
 
-      /* inactive: behind */
-      background: rgba(255,255,255,0.72);
-      transform: translateY(7px);
-      opacity: 0.72;
-      filter: saturate(0.9);
-      box-shadow: 0 14px 18px rgba(0,0,0,0.14);
+      background: rgba(255,255,255,0.70);
+      opacity: 0.65;
+      transform: translateY(6px);
+      box-shadow: 0 10px 14px rgba(0,0,0,0.14);
     }
 
     .folder-tabs .tab:hover{
-      opacity: 0.9;
-      transform: translateY(5px);
-      background: rgba(255,255,255,0.80);
+      opacity: 0.85;
+      transform: translateY(4px);
     }
 
     .folder-tabs .tab.active{
-      background: rgba(255,255,255,0.985);
-      transform: translateY(0);
+      background: rgba(255,255,255,1);
       opacity: 1;
-      filter:none;
+      transform: translateY(0);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.12);
       z-index: 3;
-
-      /* softer shadow so it feels “attached” */
-      box-shadow: 0 8px 12px rgba(0,0,0,0.10);
     }
 
     /* ======================
-       Folder body
+       Folder body (FLAT TOP)
        ====================== */
     .board{
       background: var(--board-bg);
-      border-radius: var(--radius);
+
+      /* THIS IS THE KEY CHANGE */
+      border-radius: 6px 6px var(--radius-bottom) var(--radius-bottom);
+
       box-shadow: var(--shadow);
       padding: 26px;
       position: relative;
       overflow: hidden;
 
-      /* attach to tab shelf */
-      margin-top: -12px;       /* less overlap than before */
+      margin-top: -12px; /* attaches to tabs */
     }
 
     .board::after{
@@ -162,12 +158,24 @@
       pointer-events:none;
     }
 
-    .board-inner{ position:relative; z-index:1; }
+    .board-inner{
+      position:relative;
+      z-index:1;
+    }
 
-    /* content */
-    .title{ font-size:2rem; margin:0 0 18px; letter-spacing:.2px; }
+    /* ======================
+       Content
+       ====================== */
+    .title{
+      font-size:2rem;
+      margin:0 0 18px;
+      letter-spacing:.2px;
+    }
 
-    .section{ margin:0 0 34px; }
+    .section{
+      margin:0 0 34px;
+    }
+
     .section h2{
       margin:0 0 16px;
       font-size:1.2rem;
@@ -181,7 +189,9 @@
       gap: var(--gap);
     }
 
-    /* ===== certificate tile ===== */
+    /* ======================
+       Certificate tiles (UNCHANGED)
+       ====================== */
     .cert{
       height: var(--tile-h);
       border-radius: var(--tile-radius);
@@ -233,9 +243,7 @@
       transform: scale(1.12);
       opacity: 0.18;
       display:block;
-
-      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
-              mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
     }
 
     .cert-content{
@@ -247,7 +255,6 @@
       flex-direction:column;
       justify-content:center;
       gap: 10px;
-
       background: linear-gradient(
         90deg,
         rgba(255,255,255,0.55) 0%,
@@ -261,7 +268,6 @@
       font-size:.92rem;
       line-height:1.2;
       font-weight:650;
-      letter-spacing:.1px;
       max-width: 75%;
     }
 
@@ -286,15 +292,6 @@
       background: rgba(245,215,110,0.25);
       border-color: rgba(245,215,110,0.35);
       color: #7a6200;
-    }
-
-    @media (max-width: 520px){
-      .folder{ padding-top: 42px; }
-      .tab-shelf{ height: 42px; padding: 0 18px; }
-      .tab-shelf::after{ left: 16px; right: 16px; bottom: 6px; height: 7px; }
-      .folder-tabs{ gap: 10px; }
-      .folder-tabs .tab{ padding: 9px 14px; border-radius: 14px 14px 0 0; }
-      .board{ padding: 22px; border-radius: 22px; margin-top: -10px; }
     }
   </style>
 </head>
@@ -322,76 +319,35 @@
             <div class="grid">
 
               <!-- ITCILO -->
-              <a class="cert"
-                 href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3"
-                 target="_blank" rel="noopener">
-                <div class="cert-watermark" aria-hidden="true">
-                  <img src="assets/thumbs/itcilo-logo.png" alt="">
-                </div>
+              <a class="cert" href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3" target="_blank">
+                <div class="cert-watermark"><img src="assets/thumbs/itcilo-logo.png" alt=""></div>
                 <div class="cert-content">
                   <h3 class="cert-title">Disability in the Workplace: A Global Perspective</h3>
                   <span class="issuer-pill issuer-education">ITCILO</span>
                 </div>
               </a>
 
-              <!-- Zendesk Customer Service Professional Certificate -->
-              <a class="cert"
-                 href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed?trk=share_certificate"
-                 target="_blank" rel="noopener">
-                <div class="cert-watermark" aria-hidden="true">
-                  <img src="assets/thumbs/zendesk.png" alt="">
-                </div>
+              <a class="cert" href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed" target="_blank">
+                <div class="cert-watermark"><img src="assets/thumbs/zendesk.png" alt=""></div>
                 <div class="cert-content">
                   <h3 class="cert-title">Zendesk Customer Service Professional Certificate</h3>
                   <span class="issuer-pill issuer-vendor">Zendesk</span>
                 </div>
               </a>
 
-              <!-- Zendesk Support for Agents -->
-              <a class="cert"
-                 href="https://verify.skilljar.com/c/bagg5ao9vc59"
-                 target="_blank" rel="noopener">
-                <div class="cert-watermark" aria-hidden="true">
-                  <img src="assets/thumbs/zendesk.png" alt="">
-                </div>
+              <a class="cert" href="https://verify.skilljar.com/c/bagg5ao9vc59" target="_blank">
+                <div class="cert-watermark"><img src="assets/thumbs/zendesk.png" alt=""></div>
                 <div class="cert-content">
                   <h3 class="cert-title">Zendesk Support for Agents</h3>
                   <span class="issuer-pill issuer-vendor">Zendesk</span>
                 </div>
               </a>
 
-              <!-- Build Your Skills in Customer Service -->
-              <a class="cert"
-                 href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10?trk=share_certificate"
-                 target="_blank" rel="noopener">
-                <div class="cert-watermark" aria-hidden="true">
-                  <img src="assets/thumbs/linkedin.png" alt="">
-                </div>
+              <a class="cert" href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10" target="_blank">
+                <div class="cert-watermark"><img src="assets/thumbs/linkedin.png" alt=""></div>
                 <div class="cert-content">
                   <h3 class="cert-title">Build Your Skills in Customer Service</h3>
                   <span class="issuer-pill issuer-vendor">LinkedIn Learning</span>
-                </div>
-              </a>
-
-              <!-- Gorgias (placeholder link) -->
-              <a class="cert" href="#" title="Certificate link coming soon">
-                <div class="cert-watermark" aria-hidden="true">
-                  <img src="assets/thumbs/gorgias.png" alt="">
-                </div>
-                <div class="cert-content">
-                  <h3 class="cert-title">Gorgias Certified Support Agent</h3>
-                  <span class="issuer-pill issuer-vendor">Gorgias Academy</span>
-                </div>
-              </a>
-
-              <!-- Welcome Host Gold -->
-              <a class="cert" href="#" title="In-person certificate – digital copy not available">
-                <div class="cert-watermark" aria-hidden="true">
-                  <img src="assets/thumbs/WHG.png" alt="">
-                </div>
-                <div class="cert-content">
-                  <h3 class="cert-title">Welcome Host Gold – Customer Service Training</h3>
-                  <span class="issuer-pill issuer-education">Welcome to Excellence</span>
                 </div>
               </a>
 
