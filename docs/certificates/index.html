@@ -20,9 +20,9 @@
       --gap: 22px;
 
       /* Tabs */
-      --tab-radius: 18px;
+      --tab-radius: 16px;                 /* slightly less bubbly */
       --tab-border: rgba(0,0,0,0.14);
-      --lip: rgba(215,161,171,0.16);
+      --lip: rgba(215,161,171,0.14);
     }
 
     *{ box-sizing:border-box; }
@@ -53,94 +53,94 @@
        ====================== */
     .folder{
       position: relative;
-      /* reserve space for tabs so nothing overlaps */
-      padding-top: 56px;
+      padding-top: 44px; /* tighter than before */
     }
 
     /* ======================
-       Tab shelf (outside the board but attached)
+       Tab shelf
        ====================== */
     .tab-shelf{
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding-left: 28px;
-      padding-right: 28px;
-      height: 56px;
-      display: flex;
-      align-items: flex-end;
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height: 44px;            /* tighter */
+      padding: 0 26px;
+      display:flex;
+      align-items:flex-end;
       z-index: 10;
     }
 
-    /* the “folder edge” line behind the tabs */
+    /* folder edge line behind tabs */
     .tab-shelf::after{
       content:"";
       position:absolute;
       left: 22px;
       right: 22px;
-      bottom: 10px;
-      height: 10px;
+      bottom: 6px;             /* slightly higher */
+      height: 7px;             /* thinner lip */
       border-radius: 999px;
       background: var(--lip);
       border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
       z-index: 1;
     }
 
     .folder-tabs{
       position: relative;
-      z-index: 2; /* above the lip */
+      z-index: 2;
       display:flex;
-      gap: 14px;
+      gap: 12px;
       align-items:flex-end;
-      margin: 0;
-      padding: 0;
+      margin:0;
+      padding:0;
     }
 
     .folder-tabs .tab{
-      position: relative;
+      position:relative;
       display:inline-flex;
       align-items:center;
       justify-content:center;
 
-      padding: 12px 24px;
+      /* smaller + more “tab-like” */
+      padding: 9px 18px;
       border-radius: var(--tab-radius) var(--tab-radius) 0 0;
 
       text-decoration:none;
-      font-weight: 850;
-      letter-spacing: 0.2px;
+      font-weight: 800;
+      letter-spacing: 0.1px;
       color: var(--ink);
 
       border: 1px solid var(--tab-border);
       border-bottom: none;
 
-      /* INACTIVE: behind */
+      /* inactive: behind */
       background: rgba(255,255,255,0.72);
-      transform: translateY(10px);
-      opacity: 0.78;
+      transform: translateY(7px);
+      opacity: 0.72;
       filter: saturate(0.9);
-      box-shadow: 0 22px 28px rgba(0,0,0,0.16);
+      box-shadow: 0 14px 18px rgba(0,0,0,0.14);
     }
 
     .folder-tabs .tab:hover{
-      opacity: 0.92;
-      transform: translateY(7px);
+      opacity: 0.9;
+      transform: translateY(5px);
       background: rgba(255,255,255,0.80);
     }
 
     .folder-tabs .tab.active{
-      /* ACTIVE: front + clean */
       background: rgba(255,255,255,0.985);
       transform: translateY(0);
       opacity: 1;
-      filter: none;
-      box-shadow: 0 12px 18px rgba(0,0,0,0.10);
+      filter:none;
       z-index: 3;
+
+      /* softer shadow so it feels “attached” */
+      box-shadow: 0 8px 12px rgba(0,0,0,0.10);
     }
 
     /* ======================
-       Board (folder body)
+       Folder body
        ====================== */
     .board{
       background: var(--board-bg);
@@ -150,8 +150,8 @@
       position: relative;
       overflow: hidden;
 
-      /* Pull the board up so tabs look attached */
-      margin-top: -18px;
+      /* attach to tab shelf */
+      margin-top: -12px;       /* less overlap than before */
     }
 
     .board::after{
@@ -164,6 +164,7 @@
 
     .board-inner{ position:relative; z-index:1; }
 
+    /* content */
     .title{ font-size:2rem; margin:0 0 18px; letter-spacing:.2px; }
 
     .section{ margin:0 0 34px; }
@@ -288,12 +289,12 @@
     }
 
     @media (max-width: 520px){
-      .folder{ padding-top: 52px; }
-      .tab-shelf{ height: 52px; padding-left: 18px; padding-right: 18px; }
-      .tab-shelf::after{ left: 16px; right: 16px; bottom: 9px; height: 9px; }
+      .folder{ padding-top: 42px; }
+      .tab-shelf{ height: 42px; padding: 0 18px; }
+      .tab-shelf::after{ left: 16px; right: 16px; bottom: 6px; height: 7px; }
       .folder-tabs{ gap: 10px; }
-      .folder-tabs .tab{ padding: 10px 16px; border-radius: 16px 16px 0 0; }
-      .board{ padding: 22px; border-radius: 22px; margin-top: -16px; }
+      .folder-tabs .tab{ padding: 9px 14px; border-radius: 14px 14px 0 0; }
+      .board{ padding: 22px; border-radius: 22px; margin-top: -10px; }
     }
   </style>
 </head>
@@ -303,7 +304,6 @@
 
     <div class="folder">
 
-      <!-- Tabs are NOT inside the board. They sit on a tab shelf above it. -->
       <div class="tab-shelf">
         <nav class="folder-tabs" aria-label="Credential sections">
           <a class="tab" href="/Credential-wall/">Badges</a>
@@ -313,6 +313,7 @@
 
       <div class="board">
         <div class="board-inner">
+
           <h1 class="title">Certificates</h1>
 
           <section class="section">
