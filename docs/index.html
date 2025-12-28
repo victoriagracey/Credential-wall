@@ -7,80 +7,104 @@
 
   <style>
     :root{
-      --page-bg: #d7a1ab;
+      /* Match certificates page */
+      --page-bg: #f2d6dc;
+      --board-bg: rgba(255,255,255,0.92);
       --tile-bg: rgba(255,255,255,0.92);
+      --ink: #2f2327;
+      --muted: #6a4a53;
       --shadow: 0 18px 45px rgba(0,0,0,0.14);
       --radius: 26px;
+      --tile-radius: 18px;
 
+      /* Keep your badge sizing + spacing */
       --badge-height: 130px;
       --gap: 48px;
 
+      /* Keep your sparkles (tuned to new pink) */
       --sparkle: rgba(215,161,171,0.7);
     }
 
+    *{ box-sizing:border-box; }
+
     body{
-      margin: 0;
+      margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: var(--page-bg);
-      padding: 48px 18px;
-      color: rgba(0,0,0,0.86);
+      color: var(--ink);
+      padding: 46px 20px 80px;
+
+      /* Same background treatment as certificates page */
+      background:
+        radial-gradient(circle at 18% 16%, rgba(255,255,255,.35), transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(255,255,255,.22), transparent 60%),
+        repeating-linear-gradient(
+          45deg,
+          rgba(255,255,255,0.22),
+          rgba(255,255,255,0.22) 1px,
+          transparent 1px,
+          transparent 7px
+        ),
+        var(--page-bg);
     }
 
-    .page{
-      min-height: calc(100vh - 96px);
-      display: grid;
-      place-items: start center;
-    }
+    .page{ max-width:1080px; margin:0 auto; }
 
-    .wallet{
-      width: min(1050px, 92vw);
-      background: var(--tile-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 34px;
-      backdrop-filter: blur(6px);
-    }
-
+    /* Match certificates header sizing */
     .title{
-      margin: 0 0 18px;
-      font-size: clamp(28px, 3vw, 36px);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+      font-size:2rem;
+      margin:0 0 10px;
+      letter-spacing:.2px;
     }
 
     .subtitle{
-      margin: 0 0 26px;
-      color: rgba(0,0,0,0.62);
-      font-size: 14px;
+      margin: 0 0 18px;
+      color: var(--muted);
+      opacity: 0.9;
+      font-size: 0.95rem;
     }
 
-    .section-title{
-      margin: 26px 0 16px;
-      font-size: 16px;
+    /* Same board container */
+    .board{
+      background: var(--board-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .board::after{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background: radial-gradient(circle at 20% 10%, rgba(255,255,255,.55), transparent 55%);
+      pointer-events:none;
+    }
+
+    .board-inner{ position:relative; z-index:1; }
+
+    /* Same section styling as cert page (but keep your uppercase look) */
+    .section{ margin:0 0 34px; }
+
+    .section h2{
+      margin:0 0 16px;
+      font-size: 1.05rem;
+      font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(0,0,0,0.70);
+      color: var(--muted);
     }
 
-    .divider{
-      height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        rgba(0,0,0,0.18),
-        transparent
-      );
-      margin: 22px 0 18px;
-    }
-
+    /* Keep your badge “wall” layout, just inside the board */
     .wall{
       display: flex;
       gap: var(--gap);
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start; /* looks cleaner than centered in a folder */
       flex-wrap: wrap;
     }
 
+    /* Your badge styling unchanged */
     .badge{
       position: relative;
       display: inline-flex;
@@ -127,13 +151,14 @@
       100%{ opacity:0; transform:scale(1.15); }
     }
 
+    /* Mobile tweaks */
     @media (max-width: 520px){
       :root{
         --badge-height: 115px;
         --gap: 26px;
       }
-      .wallet{
-        padding: 26px;
+      .board{
+        padding: 22px;
         border-radius: 22px;
       }
     }
@@ -141,77 +166,79 @@
 </head>
 
 <body>
-  <main class="page">
-    <section class="wallet">
+  <div class="page">
+    <h1 class="title">Badges</h1>
+    <p class="subtitle">A wee credential wallet — click any badge to view verification.</p>
 
-      <h1 class="title">Victoria’s Badges</h1>
-      <p class="subtitle">A wee credential wallet — click any badge to view verification.</p>
+    <div class="board">
+      <div class="board-inner">
 
-      <!-- CRMs -->
-      <h2 class="section-title">CRMs</h2>
-      <div class="divider"></div>
-      <div class="wall">
-        <a class="badge" href="PASTE_CERT_LINK_HERE" target="_blank" rel="noopener">
-          <img src="docs/badges/Gorgias.png" alt="Gorgias Certified Support Agent">
-        </a>
+        <section class="section">
+          <h2>CRMs</h2>
+          <div class="wall">
+            <a class="badge" href="PASTE_CERT_LINK_HERE" target="_blank" rel="noopener">
+              <img src="docs/badges/Gorgias.png" alt="Gorgias Certified Support Agent">
+            </a>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Automation &amp; AI</h2>
+          <div class="wall">
+            <a class="badge"
+               href="https://www.salesforce.com/trailblazer/vrichardson13"
+               target="_blank" rel="noopener">
+              <img src="docs/badges/agentblazer.png" alt="Agentblazer Champion – Agentforce &amp; AI">
+            </a>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Productivity Tools</h2>
+          <div class="wall">
+            <a class="badge"
+               href="https://www.salesforce.com/trailblazer/vrichardson13"
+               target="_blank" rel="noopener">
+              <img src="docs/badges/slack.png" alt="Slack — Productivity Tool">
+            </a>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Accessibility &amp; Inclusion</h2>
+          <div class="wall">
+            <a class="badge"
+               href="https://www.open.edu/openlearn/badges/badge.php?hash=5c11bb6dee7a3b883f58efd25fac87dabd19497a"
+               target="_blank" rel="noopener">
+              <img src="docs/badges/Understanding_autism.png" alt="Understanding Autism – Open University">
+            </a>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Additional Learning</h2>
+          <div class="wall">
+            <a class="badge"
+               href="https://www.credly.com/badges/8d184c6b-a364-400c-9b7b-f5aea08f8389/public_url"
+               target="_blank" rel="noopener">
+              <img src="docs/badges/aws_SWS.png" alt="AWS Educate - Getting Started with Storage">
+            </a>
+          </div>
+        </section>
+
+        <section class="section" style="margin-bottom:0;">
+          <h2>Foundations / Prep / In Progress</h2>
+          <div class="wall">
+            <a class="badge"
+               href="https://mylearn.oracle.com/ou/learning-path/how-to-purchase-and-take-an-oracle-exam/139184"
+               target="_blank" rel="noopener">
+              <img src="docs/badges/Oracle_university.png" alt="Oracle University – Learning Path (Foundations)">
+            </a>
+          </div>
+        </section>
+
       </div>
-
-      <!-- Automation & AI -->
-      <h2 class="section-title">Automation &amp; AI</h2>
-      <div class="divider"></div>
-      <div class="wall">
-        <a class="badge"
-           href="https://www.salesforce.com/trailblazer/vrichardson13"
-           target="_blank" rel="noopener">
-          <img src="docs/badges/agentblazer.png" alt="Agentblazer Champion – Agentforce & AI">
-        </a>
-      </div>
-
-      <!-- Productivity Tools -->
-      <h2 class="section-title">Productivity Tools</h2>
-      <div class="divider"></div>
-      <div class="wall">
-        <a class="badge"
-           href="https://www.salesforce.com/trailblazer/vrichardson13"
-           target="_blank" rel="noopener">
-          <img src="docs/badges/slack.png" alt="Slack — Productivity Tool">
-        </a>
-      </div>
-
-      <!-- Accessibility -->
-      <h2 class="section-title">Accessibility &amp; Inclusion</h2>
-      <div class="divider"></div>
-      <div class="wall">
-        <a class="badge"
-           href="https://www.open.edu/openlearn/badges/badge.php?hash=5c11bb6dee7a3b883f58efd25fac87dabd19497a"
-           target="_blank" rel="noopener">
-          <img src="docs/badges/Understanding_autism.png" alt="Understanding Autism – Open University">
-        </a>
-      </div>
-
-      <!-- Additional Learning -->
-      <h2 class="section-title">Additional Learning</h2>
-      <div class="divider"></div>
-      <div class="wall">
-        <a class="badge"
-           href="https://www.credly.com/badges/8d184c6b-a364-400c-9b7b-f5aea08f8389/public_url"
-           target="_blank" rel="noopener">
-          <img src="docs/badges/aws_SWS.png" alt="AWS Educate - Getting Started with Storage">
-        </a>
-      </div>
-
-      <!-- Foundations -->
-      <h2 class="section-title">Foundations / Prep / In Progress</h2>
-      <div class="divider"></div>
-      <div class="wall">
-        <a class="badge"
-           href="https://mylearn.oracle.com/ou/learning-path/how-to-purchase-and-take-an-oracle-exam/139184"
-           target="_blank" rel="noopener">
-          <img src="docs/badges/Oracle_university.png" alt="Oracle University – Learning Path (Foundations)">
-        </a>
-      </div>
-
-    </section>
-  </main>
+    </div>
+  </div>
 </body>
 </html>
