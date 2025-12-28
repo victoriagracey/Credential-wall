@@ -8,22 +8,16 @@
   <style>
     :root{
       --page-bg: #f2d6dc;
-      --board-bg: rgba(255,255,255,0.96);
-      --tile-bg: rgba(255,255,255,0.96);
+      --board-bg: rgba(255,255,255,0.92);
+      --tile-bg: rgba(255,255,255,0.92);
       --ink: #2f2327;
       --muted: #6a4a53;
       --shadow: 0 18px 45px rgba(0,0,0,0.14);
-
-      --radius-bottom: 26px;
+      --radius: 26px;
       --tile-radius: 18px;
 
       --tile-h: 140px;
       --gap: 22px;
-
-      /* Tabs */
-      --tab-radius: 14px;
-      --tab-border: rgba(0,0,0,0.18);
-      --lip: rgba(215,161,171,0.18);
     }
 
     *{ box-sizing:border-box; }
@@ -47,107 +41,16 @@
         var(--page-bg);
     }
 
-    .page{
-      max-width:1080px;
-      margin:0 auto;
-    }
+    .page{ max-width:1080px; margin:0 auto; }
+    .title{ font-size:2rem; margin:0 0 18px; letter-spacing:.2px; }
 
-    /* ======================
-       Folder wrapper
-       ====================== */
-    .folder{
-      position: relative;
-      padding-top: 38px; /* space for tabs */
-    }
-
-    /* ======================
-       Tabs (attached, not floating)
-       ====================== */
-    .tab-shelf{
-      position:absolute;
-      top:0;
-      left:0;
-      right:0;
-      height: 38px;
-      padding: 0 26px;
-      display:flex;
-      align-items:flex-end;
-      z-index: 10;
-    }
-
-    /* thin folder edge behind tabs */
-    .tab-shelf::after{
-      content:"";
-      position:absolute;
-      left: 22px;
-      right: 22px;
-      bottom: 5px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--lip);
-      border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
-      z-index: 1;
-    }
-
-    .folder-tabs{
-      position: relative;
-      z-index: 2;
-      display:flex;
-      gap: 10px;
-      align-items:flex-end;
-    }
-
-    .folder-tabs .tab{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-
-      padding: 7px 16px;
-      border-radius: var(--tab-radius) var(--tab-radius) 0 0;
-
-      text-decoration:none;
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: var(--ink);
-
-      border: 1px solid var(--tab-border);
-      border-bottom: none;
-
-      background: rgba(255,255,255,0.70);
-      opacity: 0.65;
-      transform: translateY(6px);
-      box-shadow: 0 10px 14px rgba(0,0,0,0.14);
-    }
-
-    .folder-tabs .tab:hover{
-      opacity: 0.85;
-      transform: translateY(4px);
-    }
-
-    .folder-tabs .tab.active{
-      background: rgba(255,255,255,1);
-      opacity: 1;
-      transform: translateY(0);
-      box-shadow: 0 6px 10px rgba(0,0,0,0.12);
-      z-index: 3;
-    }
-
-    /* ======================
-       Folder body (FLAT TOP)
-       ====================== */
     .board{
       background: var(--board-bg);
-
-      /* THIS IS THE KEY CHANGE */
-      border-radius: 6px 6px var(--radius-bottom) var(--radius-bottom);
-
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 26px;
       position: relative;
       overflow: hidden;
-
-      margin-top: -12px; /* attaches to tabs */
     }
 
     .board::after{
@@ -158,24 +61,9 @@
       pointer-events:none;
     }
 
-    .board-inner{
-      position:relative;
-      z-index:1;
-    }
+    .board-inner{ position:relative; z-index:1; }
 
-    /* ======================
-       Content
-       ====================== */
-    .title{
-      font-size:2rem;
-      margin:0 0 18px;
-      letter-spacing:.2px;
-    }
-
-    .section{
-      margin:0 0 34px;
-    }
-
+    .section{ margin:0 0 34px; }
     .section h2{
       margin:0 0 16px;
       font-size:1.2rem;
@@ -189,9 +77,7 @@
       gap: var(--gap);
     }
 
-    /* ======================
-       Certificate tiles (UNCHANGED)
-       ====================== */
+    /* ===== certificate tile ===== */
     .cert{
       height: var(--tile-h);
       border-radius: var(--tile-radius);
@@ -210,6 +96,7 @@
       box-shadow: 0 20px 46px rgba(0,0,0,0.16);
     }
 
+    /* subtle pink glow on tile (top-left only) */
     .cert::before{
       content:"";
       position:absolute;
@@ -226,6 +113,7 @@
       z-index: 1;
     }
 
+    /* watermark / ghost image */
     .cert-watermark{
       position:absolute;
       inset:0;
@@ -243,9 +131,12 @@
       transform: scale(1.12);
       opacity: 0.18;
       display:block;
-      mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+              mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
     }
 
+    /* foreground content */
     .cert-content{
       position:relative;
       z-index: 3;
@@ -255,6 +146,7 @@
       flex-direction:column;
       justify-content:center;
       gap: 10px;
+
       background: linear-gradient(
         90deg,
         rgba(255,255,255,0.55) 0%,
@@ -268,9 +160,11 @@
       font-size:.92rem;
       line-height:1.2;
       font-weight:650;
+      letter-spacing:.1px;
       max-width: 75%;
     }
 
+    /* issuer pills */
     .issuer-pill{
       align-self:flex-start;
       font-size:.72rem;
@@ -298,65 +192,98 @@
 
 <body>
   <div class="page">
+    <h1 class="title">Certificates</h1>
 
-    <div class="folder">
+    <div class="board">
+      <div class="board-inner">
 
-      <div class="tab-shelf">
-        <nav class="folder-tabs" aria-label="Credential sections">
-          <a class="tab" href="/Credential-wall/">Badges</a>
-          <a class="tab active" href="/Credential-wall/certificates/">Certificates</a>
-        </nav>
+        <section class="section">
+          <h2>Workplace &amp; Inclusion</h2>
+
+          <div class="grid">
+
+            <!-- ITCILO -->
+            <a class="cert"
+               href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3"
+               target="_blank" rel="noopener">
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/itcilo-logo.png" alt="">
+              </div>
+              <div class="cert-content">
+                <h3 class="cert-title">Disability in the Workplace: A Global Perspective</h3>
+                <span class="issuer-pill issuer-education">ITCILO</span>
+              </div>
+            </a>
+
+            <!-- Zendesk Customer Service Professional Certificate -->
+            <a class="cert"
+               href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed?trk=share_certificate"
+               target="_blank" rel="noopener">
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/zendesk.png" alt="">
+              </div>
+              <div class="cert-content">
+                <h3 class="cert-title">Zendesk Customer Service Professional Certificate</h3>
+                <span class="issuer-pill issuer-vendor">Zendesk</span>
+              </div>
+            </a>
+
+            <!-- Zendesk Support for Agents -->
+            <a class="cert"
+               href="https://verify.skilljar.com/c/bagg5ao9vc59"
+               target="_blank" rel="noopener">
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/zendesk.png" alt="">
+              </div>
+              <div class="cert-content">
+                <h3 class="cert-title">Zendesk Support for Agents</h3>
+                <span class="issuer-pill issuer-vendor">Zendesk</span>
+              </div>
+            </a>
+
+            <!-- Build Your Skills in Customer Service -->
+            <a class="cert"
+               href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10?trk=share_certificate"
+               target="_blank" rel="noopener">
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/linkedin.png" alt="">
+              </div>
+              <div class="cert-content">
+                <h3 class="cert-title">Build Your Skills in Customer Service</h3>
+                <span class="issuer-pill issuer-vendor">LinkedIn Learning</span>
+              </div>
+            </a>
+
+            <!-- Gorgias (placeholder link) -->
+            <a class="cert"
+               href="#"
+               title="Certificate link coming soon">
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/gorgias.png" alt="">
+              </div>
+              <div class="cert-content">
+                <h3 class="cert-title">Gorgias Certified Support Agent</h3>
+                <span class="issuer-pill issuer-vendor">Gorgias Academy</span>
+              </div>
+            </a>
+
+            <!-- Welcome Host Gold -->
+            <a class="cert"
+               href="#"
+               title="In-person certificate – digital copy not available">
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/WHG.png" alt="">
+              </div>
+              <div class="cert-content">
+                <h3 class="cert-title">Welcome Host Gold – Customer Service Training</h3>
+                <span class="issuer-pill issuer-education">Welcome to Excellence</span>
+              </div>
+            </a>
+
+          </div>
+        </section>
+
       </div>
-
-      <div class="board">
-        <div class="board-inner">
-
-          <h1 class="title">Certificates</h1>
-
-          <section class="section">
-            <h2>Workplace &amp; Inclusion</h2>
-
-            <div class="grid">
-
-              <!-- ITCILO -->
-              <a class="cert" href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3" target="_blank">
-                <div class="cert-watermark"><img src="assets/thumbs/itcilo-logo.png" alt=""></div>
-                <div class="cert-content">
-                  <h3 class="cert-title">Disability in the Workplace: A Global Perspective</h3>
-                  <span class="issuer-pill issuer-education">ITCILO</span>
-                </div>
-              </a>
-
-              <a class="cert" href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed" target="_blank">
-                <div class="cert-watermark"><img src="assets/thumbs/zendesk.png" alt=""></div>
-                <div class="cert-content">
-                  <h3 class="cert-title">Zendesk Customer Service Professional Certificate</h3>
-                  <span class="issuer-pill issuer-vendor">Zendesk</span>
-                </div>
-              </a>
-
-              <a class="cert" href="https://verify.skilljar.com/c/bagg5ao9vc59" target="_blank">
-                <div class="cert-watermark"><img src="assets/thumbs/zendesk.png" alt=""></div>
-                <div class="cert-content">
-                  <h3 class="cert-title">Zendesk Support for Agents</h3>
-                  <span class="issuer-pill issuer-vendor">Zendesk</span>
-                </div>
-              </a>
-
-              <a class="cert" href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10" target="_blank">
-                <div class="cert-watermark"><img src="assets/thumbs/linkedin.png" alt=""></div>
-                <div class="cert-content">
-                  <h3 class="cert-title">Build Your Skills in Customer Service</h3>
-                  <span class="issuer-pill issuer-vendor">LinkedIn Learning</span>
-                </div>
-              </a>
-
-            </div>
-          </section>
-
-        </div>
-      </div>
-
     </div>
   </div>
 </body>
