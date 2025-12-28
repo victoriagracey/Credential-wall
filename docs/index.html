@@ -18,10 +18,6 @@
       --gap: 48px;
 
       --sparkle: rgba(215,161,171,0.7);
-
-      --tab-radius: 18px;
-      --tab-border: rgba(0,0,0,0.14);
-      --line: rgba(0,0,0,0.08);
     }
 
     *{ box-sizing:border-box; }
@@ -47,15 +43,14 @@
 
     .page{ max-width:1080px; margin:0 auto; }
 
-    /* ======================
-       Board container
-       ====================== */
+    /* ===== board container ===== */
     .board{
       background: var(--board-bg);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
       position: relative;
+      padding: 22px 26px 26px;
     }
 
     .board::after{
@@ -66,111 +61,9 @@
       pointer-events:none;
     }
 
-    /* ======================
-       Tabs bar
-       ====================== */
-    .tabs-bar{
-      position: relative;
-      z-index: 2;
-      padding: 18px 22px 0;
-    }
-
-    .folder-tabs{
-      display:flex;
-      gap: 14px;
-      align-items:flex-end;
-      margin: 0;
-      padding: 0;
-    }
-
-    .folder-tabs .tab{
-      position: relative;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-
-      padding: 12px 24px;
-      border-radius: var(--tab-radius) var(--tab-radius) 0 0;
-
-      text-decoration:none;
-      font-weight: 850;
-      letter-spacing: 0.2px;
-      color: var(--ink);
-
-      border: 1px solid var(--tab-border);
-      border-bottom: none;
-
-      /* INACTIVE: behind */
-      background: rgba(255,255,255,0.70);
-      transform: translateY(12px);
-      box-shadow:
-        0 22px 26px rgba(0,0,0,0.16),
-        inset 0 1px 0 rgba(255,255,255,0.65);
-      opacity: 0.82;
-      filter: saturate(0.88);
-    }
-
-    .folder-tabs .tab:hover{
-      opacity: 0.95;
-      transform: translateY(9px);
-      background: rgba(255,255,255,0.78);
-    }
-
-    /* ACTIVE: clearly selected */
-    .folder-tabs .tab.active{
-      background: rgba(255,255,255,0.985);
-      transform: translateY(0);
-      opacity: 1;
-      filter: none;
-      z-index: 3;
-
-      /* lighter shadow (it “belongs” to the board) */
-      box-shadow:
-        0 10px 16px rgba(0,0,0,0.10),
-        inset 0 1px 0 rgba(255,255,255,0.85);
-    }
-
-    /* Little join illusion so the active tab feels attached */
-    .folder-tabs .tab.active::before,
-    .folder-tabs .tab.active::after{
-      content:"";
-      position:absolute;
-      bottom:-1px;
-      width: 18px;
-      height: 18px;
-      background: transparent;
-      pointer-events:none;
-    }
-
-    .folder-tabs .tab.active::before{
-      left:-18px;
-      border-bottom-right-radius: 18px;
-      box-shadow: 9px 9px 0 rgba(255,255,255,0.985);
-    }
-
-    .folder-tabs .tab.active::after{
-      right:-18px;
-      border-bottom-left-radius: 18px;
-      box-shadow: -9px 9px 0 rgba(255,255,255,0.985);
-    }
-
-    /* Folder lip line behind the tabs */
-    .tabs-divider{
-      margin-top: 10px;
-      height: 10px;              /* thinner than before */
-      border-radius: 999px;
-      background: rgba(215,161,171,0.16);
-      border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
-    }
-
-    /* ======================
-       Content area
-       ====================== */
     .board-inner{
       position: relative;
       z-index: 1;
-      padding: 22px 26px 26px;
     }
 
     .title{
@@ -186,18 +79,43 @@
       opacity: 0.92;
     }
 
-    /* Sections */
-    .section{ margin:0 0 34px; }
-
-    .section h2{
-      margin:0 0 16px;
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
+    /* ===== safe page connector (matches certificates page) ===== */
+    .switch{
+      display:flex;
+      gap:10px;
+      margin: 0 0 22px;
+      flex-wrap:wrap;
     }
 
+    .switch-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.10);
+      background: rgba(255,255,255,0.70);
+      color: var(--ink);
+      text-decoration:none;
+      font-weight:700;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.10);
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+      opacity:.85;
+    }
+
+    .switch-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(0,0,0,0.14);
+      opacity:1;
+    }
+
+    .switch-btn.active{
+      background: rgba(255,255,255,0.95);
+      opacity:1;
+      pointer-events:none;
+    }
+
+    /* ===== single unified wall ===== */
     .wall{
       display:flex;
       gap: var(--gap);
@@ -258,12 +176,7 @@
         --badge-height: 115px;
         --gap: 26px;
       }
-
-      .tabs-bar{ padding: 14px 16px 0; }
-      .folder-tabs{ gap: 10px; }
-      .folder-tabs .tab{ padding: 10px 16px; border-radius: 16px 16px 0 0; }
-      .tabs-divider{ height: 9px; }
-      .board-inner{ padding: 18px 18px 22px; }
+      .board{ padding: 18px 18px 22px; }
     }
   </style>
 </head>
@@ -272,82 +185,44 @@
   <div class="page">
 
     <div class="board">
-
-      <div class="tabs-bar">
-        <nav class="folder-tabs" aria-label="Credential sections">
-          <a class="tab active" href="/Credential-wall/">Badges</a>
-          <a class="tab" href="/Credential-wall/certificates/">Certificates</a>
-        </nav>
-        <div class="tabs-divider" aria-hidden="true"></div>
-      </div>
-
       <div class="board-inner">
+
         <h1 class="title">Badges</h1>
         <p class="subtitle">A wee small credential wallet — click any badge to view verification.</p>
 
-        <section class="section">
-          <h2>CRMs</h2>
-          <div class="wall">
-            <a class="badge" href="PASTE_CERT_LINK_HERE" target="_blank" rel="noopener">
-              <img src="docs/badges/Gorgias.png" alt="Gorgias Certified Support Agent">
-            </a>
-          </div>
-        </section>
+        <div class="switch">
+          <span class="switch-btn active" aria-current="page">Badges</span>
+          <a class="switch-btn" href="/Credential-wall/certificates/">Certificates</a>
+        </div>
 
-        <section class="section">
-          <h2>Automation &amp; AI</h2>
-          <div class="wall">
-            <a class="badge"
-               href="https://www.salesforce.com/trailblazer/vrichardson13"
-               target="_blank" rel="noopener">
-              <img src="docs/badges/agentblazer.png" alt="Agentblazer Champion – Agentforce &amp; AI">
-            </a>
-          </div>
-        </section>
+        <!-- All badges in one unified wall (Gorgias + Slack removed) -->
+        <div class="wall">
 
-        <section class="section">
-          <h2>Productivity Tools</h2>
-          <div class="wall">
-            <a class="badge"
-               href="https://www.salesforce.com/trailblazer/vrichardson13"
-               target="_blank" rel="noopener">
-              <img src="docs/badges/slack.png" alt="Slack — Productivity Tool">
-            </a>
-          </div>
-        </section>
+          <a class="badge"
+             href="https://www.salesforce.com/trailblazer/vrichardson13"
+             target="_blank" rel="noopener">
+            <img src="docs/badges/agentblazer.png" alt="Agentblazer Champion – Agentforce &amp; AI">
+          </a>
 
-        <section class="section">
-          <h2>Accessibility &amp; Inclusion</h2>
-          <div class="wall">
-            <a class="badge"
-               href="https://www.open.edu/openlearn/badges/badge.php?hash=5c11bb6dee7a3b883f58efd25fac87dabd19497a"
-               target="_blank" rel="noopener">
-              <img src="docs/badges/Understanding_autism.png" alt="Understanding Autism – Open University">
-            </a>
-          </div>
-        </section>
+          <a class="badge"
+             href="https://www.open.edu/openlearn/badges/badge.php?hash=5c11bb6dee7a3b883f58efd25fac87dabd19497a"
+             target="_blank" rel="noopener">
+            <img src="docs/badges/Understanding_autism.png" alt="Understanding Autism – Open University">
+          </a>
 
-        <section class="section">
-          <h2>Additional Learning</h2>
-          <div class="wall">
-            <a class="badge"
-               href="https://www.credly.com/badges/8d184c6b-a364-400c-9b7b-f5aea08f8389/public_url"
-               target="_blank" rel="noopener">
-              <img src="docs/badges/aws_SWS.png" alt="AWS Educate - Getting Started with Storage">
-            </a>
-          </div>
-        </section>
+          <a class="badge"
+             href="https://www.credly.com/badges/8d184c6b-a364-400c-9b7b-f5aea08f8389/public_url"
+             target="_blank" rel="noopener">
+            <img src="docs/badges/aws_SWS.png" alt="AWS Educate - Getting Started with Storage">
+          </a>
 
-        <section class="section" style="margin-bottom:0;">
-          <h2>Foundations / Prep / In Progress</h2>
-          <div class="wall">
-            <a class="badge"
-               href="https://mylearn.oracle.com/ou/learning-path/how-to-purchase-and-take-an-oracle-exam/139184"
-               target="_blank" rel="noopener">
-              <img src="docs/badges/Oracle_university.png" alt="Oracle University – Learning Path (Foundations)">
-            </a>
-          </div>
-        </section>
+          <a class="badge"
+             href="https://mylearn.oracle.com/ou/learning-path/how-to-purchase-and-take-an-oracle-exam/139184"
+             target="_blank" rel="noopener">
+            <img src="docs/badges/Oracle_university.png" alt="Oracle University – Learning Path (Foundations)">
+          </a>
+
+        </div>
 
       </div>
     </div>
