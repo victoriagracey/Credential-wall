@@ -18,6 +18,11 @@
 
       --tile-h: 140px;
       --gap: 22px;
+
+      /* Tabs */
+      --tab-radius: 18px;
+      --tab-border: rgba(0,0,0,0.14);
+      --line: rgba(0,0,0,0.08);
     }
 
     *{ box-sizing:border-box; }
@@ -42,15 +47,14 @@
     }
 
     .page{ max-width:1080px; margin:0 auto; }
-    .title{ font-size:2rem; margin:0 0 18px; letter-spacing:.2px; }
 
+    /* ===== Board ===== */
     .board{
       background: var(--board-bg);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 26px;
-      position: relative;
       overflow: hidden;
+      position: relative;
     }
 
     .board::after{
@@ -61,7 +65,103 @@
       pointer-events:none;
     }
 
-    .board-inner{ position:relative; z-index:1; }
+    /* ===== Tabs bar (inside board) ===== */
+    .tabs-bar{
+      position: relative;
+      z-index: 2;
+      padding: 18px 22px 0;
+    }
+
+    .folder-tabs{
+      display:flex;
+      gap: 14px;
+      align-items:flex-end;
+      margin: 0;
+      padding: 0;
+    }
+
+    .folder-tabs .tab{
+      position: relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+
+      padding: 12px 24px;
+      border-radius: var(--tab-radius) var(--tab-radius) 0 0;
+
+      text-decoration:none;
+      font-weight: 850;
+      letter-spacing: 0.2px;
+      color: var(--ink);
+
+      border: 1px solid var(--tab-border);
+      border-bottom: none;
+
+      /* inactive = behind */
+      background: rgba(255,255,255,0.70);
+      transform: translateY(12px);
+      box-shadow:
+        0 22px 26px rgba(0,0,0,0.16),
+        inset 0 1px 0 rgba(255,255,255,0.65);
+      opacity: 0.82;
+      filter: saturate(0.88);
+    }
+
+    .folder-tabs .tab:hover{
+      opacity: 0.95;
+      transform: translateY(9px);
+      background: rgba(255,255,255,0.78);
+    }
+
+    .folder-tabs .tab.active{
+      background: rgba(255,255,255,0.985);
+      transform: translateY(0);
+      opacity: 1;
+      filter: none;
+      z-index: 3;
+      box-shadow:
+        0 10px 16px rgba(0,0,0,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.85);
+    }
+
+    .folder-tabs .tab.active::before,
+    .folder-tabs .tab.active::after{
+      content:"";
+      position:absolute;
+      bottom:-1px;
+      width: 18px;
+      height: 18px;
+      background: transparent;
+      pointer-events:none;
+    }
+    .folder-tabs .tab.active::before{
+      left:-18px;
+      border-bottom-right-radius: 18px;
+      box-shadow: 9px 9px 0 rgba(255,255,255,0.985);
+    }
+    .folder-tabs .tab.active::after{
+      right:-18px;
+      border-bottom-left-radius: 18px;
+      box-shadow: -9px 9px 0 rgba(255,255,255,0.985);
+    }
+
+    .tabs-divider{
+      margin-top: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(215,161,171,0.16);
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+
+    /* ===== Content area ===== */
+    .board-inner{
+      position:relative;
+      z-index:1;
+      padding: 22px 26px 26px;
+    }
+
+    .title{ font-size:2rem; margin:0 0 18px; letter-spacing:.2px; }
 
     .section{ margin:0 0 34px; }
     .section h2{
@@ -96,7 +196,6 @@
       box-shadow: 0 20px 46px rgba(0,0,0,0.16);
     }
 
-    /* subtle pink glow on tile (top-left only) */
     .cert::before{
       content:"";
       position:absolute;
@@ -113,7 +212,6 @@
       z-index: 1;
     }
 
-    /* watermark / ghost image */
     .cert-watermark{
       position:absolute;
       inset:0;
@@ -136,7 +234,6 @@
               mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
     }
 
-    /* foreground content */
     .cert-content{
       position:relative;
       z-index: 3;
@@ -164,7 +261,6 @@
       max-width: 75%;
     }
 
-    /* issuer pills */
     .issuer-pill{
       align-self:flex-start;
       font-size:.72rem;
@@ -187,15 +283,32 @@
       border-color: rgba(245,215,110,0.35);
       color: #7a6200;
     }
+
+    @media (max-width: 520px){
+      .tabs-bar{ padding: 14px 16px 0; }
+      .folder-tabs{ gap: 10px; }
+      .folder-tabs .tab{ padding: 10px 16px; border-radius: 16px 16px 0 0; }
+      .tabs-divider{ height: 9px; }
+      .board-inner{ padding: 18px 18px 22px; }
+    }
   </style>
 </head>
 
 <body>
   <div class="page">
-    <h1 class="title">Certificates</h1>
-
     <div class="board">
+
+      <!-- Tabs (Certificates active on this page) -->
+      <div class="tabs-bar">
+        <nav class="folder-tabs" aria-label="Credential sections">
+          <a class="tab" href="/Credential-wall/">Badges</a>
+          <a class="tab active" href="/Credential-wall/certificates/">Certificates</a>
+        </nav>
+        <div class="tabs-divider" aria-hidden="true"></div>
+      </div>
+
       <div class="board-inner">
+        <h1 class="title">Certificates</h1>
 
         <section class="section">
           <h2>Workplace &amp; Inclusion</h2>
@@ -268,18 +381,17 @@
             </a>
 
             <!-- Welcome Host Gold -->
-<a class="cert"
-   href="#"
-   title="In-person certificate – digital copy not available">
-  <div class="cert-watermark" aria-hidden="true">
-    <img src="assets/thumbs/WHG.png" alt="">
-  </div>
-  <div class="cert-content">
-    <h3 class="cert-title">Welcome Host Gold – Customer Service Training</h3>
-    <span class="issuer-pill issuer-education">Welcome to Excellence</span>
-  </div>
-</a>
-
+            <a class="cert"
+               href="#"
+               title="In-person certificate – digital copy not available">
+              <div class="cert-watermark" aria-hidden="true">
+                <img src="assets/thumbs/WHG.png" alt="">
+              </div>
+              <div class="cert-content">
+                <h3 class="cert-title">Welcome Host Gold – Customer Service Training</h3>
+                <span class="issuer-pill issuer-education">Welcome to Excellence</span>
+              </div>
+            </a>
 
           </div>
         </section>
