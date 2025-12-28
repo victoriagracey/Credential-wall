@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Victoria’s Badges</title>
+  <title>Badges</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -43,29 +43,7 @@
 
     .page{ max-width:1080px; margin:0 auto; }
 
-    /* ===== board container ===== */
-    .board{
-      background: var(--board-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-      padding: 22px 26px 26px;
-    }
-
-    .board::after{
-      content:"";
-      position:absolute;
-      inset:-40px;
-      background: radial-gradient(circle at 20% 10%, rgba(255,255,255,.55), transparent 55%);
-      pointer-events:none;
-    }
-
-    .board-inner{
-      position: relative;
-      z-index: 1;
-    }
-
+    /* ===== top area (outside board) ===== */
     .title{
       font-size: 2rem;
       margin: 0 0 10px;
@@ -79,11 +57,11 @@
       opacity: 0.92;
     }
 
-    /* ===== safe page connector (matches certificates page) ===== */
+    /* ===== pill switch (OUTSIDE board, like your screenshot) ===== */
     .switch{
       display:flex;
       gap:10px;
-      margin: 0 0 22px;
+      margin: 0 0 18px;
       flex-wrap:wrap;
     }
 
@@ -100,7 +78,7 @@
       font-weight:700;
       box-shadow: 0 10px 18px rgba(0,0,0,0.10);
       transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
-      opacity:.85;
+      opacity:.88;
     }
 
     .switch-btn:hover{
@@ -115,13 +93,34 @@
       pointer-events:none;
     }
 
-    /* ===== single unified wall ===== */
+    /* ===== board ===== */
+    .board{
+      background: var(--board-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .board::after{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background: radial-gradient(circle at 20% 10%, rgba(255,255,255,.55), transparent 55%);
+      pointer-events:none;
+    }
+
+    .board-inner{ position:relative; z-index:1; }
+
+    /* ===== unified wall ===== */
     .wall{
       display:flex;
       gap: var(--gap);
       align-items:center;
       justify-content:flex-start;
       flex-wrap:wrap;
+      padding-top: 6px;
     }
 
     /* Badges (unchanged) */
@@ -184,18 +183,19 @@
 <body>
   <div class="page">
 
+    <h1 class="title">Badges</h1>
+    <p class="subtitle">A wee small credential wallet — click any badge to view verification.</p>
+
+    <!-- switch OUTSIDE the board (matches your screenshot layout) -->
+    <div class="switch">
+      <span class="switch-btn active" aria-current="page">Badges</span>
+      <a class="switch-btn" href="/Credential-wall/certificates/">Certificates</a>
+    </div>
+
     <div class="board">
       <div class="board-inner">
 
-        <h1 class="title">Badges</h1>
-        <p class="subtitle">A wee small credential wallet — click any badge to view verification.</p>
-
-        <div class="switch">
-          <span class="switch-btn active" aria-current="page">Badges</span>
-          <a class="switch-btn" href="/Credential-wall/certificates/">Certificates</a>
-        </div>
-
-        <!-- All badges in one unified wall (Gorgias + Slack removed) -->
+        <!-- all badges in one wall (Gorgias + Slack removed) -->
         <div class="wall">
 
           <a class="badge"
