@@ -41,9 +41,61 @@
         var(--page-bg);
     }
 
-    .page{ max-width:1080px; margin:0 auto; }
-    .title{ font-size:2rem; margin:0 0 18px; letter-spacing:.2px; }
+    .page{
+      max-width:1080px;
+      margin:0 auto;
+    }
 
+    /* ===== page title ===== */
+    .title{
+      font-size:2rem;
+      margin:0 0 10px;
+      letter-spacing:.2px;
+    }
+
+    .subtitle{
+      margin:0 0 18px;
+      color: var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* ===== page switch (safe “tabs”) ===== */
+    .switch{
+      display:flex;
+      gap:10px;
+      margin: 0 0 22px;
+      flex-wrap:wrap;
+    }
+
+    .switch-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.10);
+      background: rgba(255,255,255,0.70);
+      color: var(--ink);
+      text-decoration:none;
+      font-weight:700;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.10);
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+      opacity:.85;
+    }
+
+    .switch-btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(0,0,0,0.14);
+      opacity:1;
+    }
+
+    .switch-btn.active{
+      background: rgba(255,255,255,0.95);
+      opacity:1;
+      pointer-events:none;
+    }
+
+    /* ===== board ===== */
     .board{
       background: var(--board-bg);
       border-radius: var(--radius);
@@ -63,7 +115,9 @@
 
     .board-inner{ position:relative; z-index:1; }
 
+    /* ===== sections ===== */
     .section{ margin:0 0 34px; }
+
     .section h2{
       margin:0 0 16px;
       font-size:1.2rem;
@@ -96,7 +150,6 @@
       box-shadow: 0 20px 46px rgba(0,0,0,0.16);
     }
 
-    /* subtle pink glow on tile (top-left only) */
     .cert::before{
       content:"";
       position:absolute;
@@ -113,7 +166,6 @@
       z-index: 1;
     }
 
-    /* watermark / ghost image */
     .cert-watermark{
       position:absolute;
       inset:0;
@@ -131,12 +183,9 @@
       transform: scale(1.12);
       opacity: 0.18;
       display:block;
-
-      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
-              mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
     }
 
-    /* foreground content */
     .cert-content{
       position:relative;
       z-index: 3;
@@ -146,7 +195,6 @@
       flex-direction:column;
       justify-content:center;
       gap: 10px;
-
       background: linear-gradient(
         90deg,
         rgba(255,255,255,0.55) 0%,
@@ -160,11 +208,9 @@
       font-size:.92rem;
       line-height:1.2;
       font-weight:650;
-      letter-spacing:.1px;
-      max-width: 75%;
+      max-width:75%;
     }
 
-    /* issuer pills */
     .issuer-pill{
       align-self:flex-start;
       font-size:.72rem;
@@ -192,7 +238,15 @@
 
 <body>
   <div class="page">
+
     <h1 class="title">Certificates</h1>
+    <p class="subtitle">Professional learning & verified credentials.</p>
+
+    <!-- page connector -->
+    <div class="switch">
+      <a class="switch-btn" href="/Credential-wall/">Badges</a>
+      <span class="switch-btn active" aria-current="page">Certificates</span>
+    </div>
 
     <div class="board">
       <div class="board-inner">
@@ -203,10 +257,8 @@
           <div class="grid">
 
             <!-- ITCILO -->
-            <a class="cert"
-               href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3"
-               target="_blank" rel="noopener">
-              <div class="cert-watermark" aria-hidden="true">
+            <a class="cert" href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3" target="_blank" rel="noopener">
+              <div class="cert-watermark">
                 <img src="assets/thumbs/itcilo-logo.png" alt="">
               </div>
               <div class="cert-content">
@@ -215,11 +267,9 @@
               </div>
             </a>
 
-            <!-- Zendesk Customer Service Professional Certificate -->
-            <a class="cert"
-               href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed?trk=share_certificate"
-               target="_blank" rel="noopener">
-              <div class="cert-watermark" aria-hidden="true">
+            <!-- Zendesk CSP -->
+            <a class="cert" href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed" target="_blank" rel="noopener">
+              <div class="cert-watermark">
                 <img src="assets/thumbs/zendesk.png" alt="">
               </div>
               <div class="cert-content">
@@ -228,11 +278,9 @@
               </div>
             </a>
 
-            <!-- Zendesk Support for Agents -->
-            <a class="cert"
-               href="https://verify.skilljar.com/c/bagg5ao9vc59"
-               target="_blank" rel="noopener">
-              <div class="cert-watermark" aria-hidden="true">
+            <!-- Zendesk Agents -->
+            <a class="cert" href="https://verify.skilljar.com/c/bagg5ao9vc59" target="_blank" rel="noopener">
+              <div class="cert-watermark">
                 <img src="assets/thumbs/zendesk.png" alt="">
               </div>
               <div class="cert-content">
@@ -241,11 +289,9 @@
               </div>
             </a>
 
-            <!-- Build Your Skills in Customer Service -->
-            <a class="cert"
-               href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10?trk=share_certificate"
-               target="_blank" rel="noopener">
-              <div class="cert-watermark" aria-hidden="true">
+            <!-- LinkedIn -->
+            <a class="cert" href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10" target="_blank" rel="noopener">
+              <div class="cert-watermark">
                 <img src="assets/thumbs/linkedin.png" alt="">
               </div>
               <div class="cert-content">
@@ -254,11 +300,9 @@
               </div>
             </a>
 
-            <!-- Gorgias (placeholder link) -->
-            <a class="cert"
-               href="#"
-               title="Certificate link coming soon">
-              <div class="cert-watermark" aria-hidden="true">
+            <!-- Gorgias -->
+            <a class="cert" href="#" title="Certificate link coming soon">
+              <div class="cert-watermark">
                 <img src="assets/thumbs/gorgias.png" alt="">
               </div>
               <div class="cert-content">
@@ -267,11 +311,9 @@
               </div>
             </a>
 
-            <!-- Welcome Host Gold -->
-            <a class="cert"
-               href="#"
-               title="In-person certificate – digital copy not available">
-              <div class="cert-watermark" aria-hidden="true">
+            <!-- Welcome Host -->
+            <a class="cert" href="#" title="In-person certificate – digital copy not available">
+              <div class="cert-watermark">
                 <img src="assets/thumbs/WHG.png" alt="">
               </div>
               <div class="cert-content">
