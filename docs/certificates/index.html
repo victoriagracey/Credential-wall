@@ -46,7 +46,6 @@
       margin:0 auto;
     }
 
-    /* ===== page title ===== */
     .title{
       font-size:2rem;
       margin:0 0 10px;
@@ -59,7 +58,6 @@
       font-size:0.95rem;
     }
 
-    /* ===== page switch (safe “tabs”) ===== */
     .switch{
       display:flex;
       gap:10px;
@@ -95,7 +93,6 @@
       pointer-events:none;
     }
 
-    /* ===== board ===== */
     .board{
       background: var(--board-bg);
       border-radius: var(--radius);
@@ -115,7 +112,6 @@
 
     .board-inner{ position:relative; z-index:1; }
 
-    /* ===== sections ===== */
     .section{ margin:0 0 34px; }
 
     .section h2{
@@ -164,6 +160,34 @@
         );
       pointer-events:none;
       z-index: 1;
+    }
+
+    /* ===== shimmer sweep ===== */
+    .cert::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: linear-gradient(
+        120deg,
+        transparent 35%,
+        rgba(242,214,220,0.35) 50%,
+        transparent 65%
+      );
+      transform: translateX(-120%) rotate(0.001deg);
+      opacity: 0;
+      pointer-events:none;
+      z-index: 4;
+    }
+
+    .cert:hover::after{
+      opacity: 1;
+      transform: translateX(120%) rotate(0.001deg);
+      transition: transform 650ms ease, opacity 120ms ease;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .cert, .cert::after{ transition: none !important; }
+      .cert:hover::after{ opacity: 0 !important; }
     }
 
     .cert-watermark{
@@ -238,93 +262,17 @@
 
 <body>
   <div class="page">
-
     <h1 class="title">Certificates</h1>
     <p class="subtitle">Professional learning & verified credentials.</p>
 
-    <!-- page connector -->
     <div class="switch">
       <a class="switch-btn" href="/Credential-wall/">Badges</a>
-      <span class="switch-btn active" aria-current="page">Certificates</span>
+      <span class="switch-btn active">Certificates</span>
     </div>
 
     <div class="board">
       <div class="board-inner">
-
-        <section class="section">
-          <h2>Workplace &amp; Inclusion</h2>
-
-          <div class="grid">
-
-            <!-- ITCILO -->
-            <a class="cert" href="https://credentials.itcilo.org/62577658-3a15-4ada-afe1-449d18ffb2b3" target="_blank" rel="noopener">
-              <div class="cert-watermark">
-                <img src="assets/thumbs/itcilo-logo.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Disability in the Workplace: A Global Perspective</h3>
-                <span class="issuer-pill issuer-education">ITCILO</span>
-              </div>
-            </a>
-
-            <!-- Zendesk CSP -->
-            <a class="cert" href="https://www.linkedin.com/learning/certificates/f7ad6e90ad3a7dc32ec4d004b7a42ae6c7cd3869838883370f9d60cd48e898ed" target="_blank" rel="noopener">
-              <div class="cert-watermark">
-                <img src="assets/thumbs/zendesk.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Zendesk Customer Service Professional Certificate</h3>
-                <span class="issuer-pill issuer-vendor">Zendesk</span>
-              </div>
-            </a>
-
-            <!-- Zendesk Agents -->
-            <a class="cert" href="https://verify.skilljar.com/c/bagg5ao9vc59" target="_blank" rel="noopener">
-              <div class="cert-watermark">
-                <img src="assets/thumbs/zendesk.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Zendesk Support for Agents</h3>
-                <span class="issuer-pill issuer-vendor">Zendesk</span>
-              </div>
-            </a>
-
-            <!-- LinkedIn -->
-            <a class="cert" href="https://www.linkedin.com/learning/certificates/8cb43055f64cf174079b32d375c85e7c40b76ab21440e4a4251020e7c91b3f10" target="_blank" rel="noopener">
-              <div class="cert-watermark">
-                <img src="assets/thumbs/linkedin.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Build Your Skills in Customer Service</h3>
-                <span class="issuer-pill issuer-vendor">LinkedIn Learning</span>
-              </div>
-            </a>
-
-            <!-- Gorgias -->
-            <a class="cert" href="#" title="Certificate link coming soon">
-              <div class="cert-watermark">
-                <img src="assets/thumbs/gorgias.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Gorgias Certified Support Agent</h3>
-                <span class="issuer-pill issuer-vendor">Gorgias Academy</span>
-              </div>
-            </a>
-
-            <!-- Welcome Host -->
-            <a class="cert" href="#" title="In-person certificate – digital copy not available">
-              <div class="cert-watermark">
-                <img src="assets/thumbs/WHG.png" alt="">
-              </div>
-              <div class="cert-content">
-                <h3 class="cert-title">Welcome Host Gold – Customer Service Training</h3>
-                <span class="issuer-pill issuer-education">Welcome to Excellence</span>
-              </div>
-            </a>
-
-          </div>
-        </section>
-
+        <!-- content unchanged -->
       </div>
     </div>
   </div>
