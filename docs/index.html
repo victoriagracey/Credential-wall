@@ -139,6 +139,7 @@
       filter: drop-shadow(0 10px 16px rgba(0,0,0,0.14));
     }
 
+    /* sparkle effect */
     .badge::after{
       content:"";
       position:absolute;
@@ -163,6 +164,32 @@
       0%{ opacity:0; transform:scale(0.9); }
       35%{ opacity:1; }
       100%{ opacity:0; transform:scale(1.15); }
+    }
+
+    /* ===== hover hint label (opt-in via data-hint) ===== */
+    .badge[data-hint]::before{
+      content: attr(data-hint);
+      position: absolute;
+      bottom: -36px;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: rgba(255,255,255,0.92);
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 5;
+    }
+
+    .badge:hover::before{
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     @media (max-width: 520px){
@@ -191,7 +218,7 @@
 
         <div class="wall">
 
-          <!-- Agentblazer (hero badge) -->
+          <!-- Agentblazer -->
           <a class="badge"
              href="https://www.salesforce.com/trailblazer/vrichardson13"
              target="_blank" rel="noopener">
@@ -199,16 +226,16 @@
                  alt="Agentblazer Champion – Agentforce & AI">
           </a>
 
-          <!-- Trailhead live stats card -->
+          <!-- Adventurer (with hover hint) -->
           <a class="badge"
              href="https://www.salesforce.com/trailblazer/vrichardson13"
-             target="_blank" rel="noopener">
-            <img
-              src="https://trailheadstats.herokuapp.com/stats/vrichardson13"
-              alt="Salesforce Trailhead activity summary">
+             target="_blank" rel="noopener"
+             data-hint="View full Salesforce badge profile">
+            <img src="docs/badges/adventurer.png"
+                 alt="Trailhead Adventurer badge">
           </a>
 
-          <!-- Other credentials -->
+          <!-- Open University -->
           <a class="badge"
              href="https://www.open.edu/openlearn/badges/badge.php?hash=5c11bb6dee7a3b883f58efd25fac87dabd19497a"
              target="_blank" rel="noopener">
@@ -216,6 +243,7 @@
                  alt="Understanding Autism – Open University">
           </a>
 
+          <!-- AWS -->
           <a class="badge"
              href="https://www.credly.com/badges/8d184c6b-a364-400c-9b7b-f5aea08f8389/public_url"
              target="_blank" rel="noopener">
@@ -223,6 +251,7 @@
                  alt="AWS Educate – Getting Started with Storage">
           </a>
 
+          <!-- Oracle -->
           <a class="badge"
              href="https://mylearn.oracle.com/ou/learning-path/how-to-purchase-and-take-an-oracle-exam/139184"
              target="_blank" rel="noopener">
